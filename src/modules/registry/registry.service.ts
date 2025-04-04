@@ -29,6 +29,7 @@ import {
 } from '@netcracker/qubership-apihub-api-processor'
 import AdmZip from 'adm-zip'
 import { toBackendBuildStatus } from 'src/utils/mapper'
+import { OperationsDto } from '../builder/builder.utils'
 
 @Injectable()
 export class RegistryService implements OnModuleInit {
@@ -150,10 +151,11 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100): Promise<ResolvedOperations> {
+  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100, page?: number): Promise<OperationsDto> {
     const queryParams = new URLSearchParams()
     queryParams.append('includeData', `${includeData}`)
     queryParams.append('limit', `${limit}`)
+    page && queryParams.append('page', `${page}`)
     operations && operations.length && queryParams.append('ids', `${operations.join(',')}`)
 
     const encodedPackageKey = encodeURIComponent(packageId)
@@ -226,11 +228,14 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionConfig(versionId: string, packageId: string, includeOperations = false): Promise<ResolvedVersion | null> {
+  public async getVersionConfig(versionId: string, packageId: string, includeOperations = false, includeSummary = false): Promise<ResolvedVersion | null> {
     const encodedPackageKey = encodeURIComponent(packageId)
     const encodedVersionKey = encodeURIComponent(versionId)
+    const queryParams = new URLSearchParams()
+    queryParams.append('includeOperations', `${includeOperations}`)
+    queryParams.append('includeSummary', `${includeSummary}`)
 
-    const versionConfigUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}?includeOperations=${includeOperations}`
+    const versionConfigUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}?${queryParams}`
     this.logger.debug('Fetch config: ', versionConfigUrl)
     const logTag = '[getVersionConfig]'
 

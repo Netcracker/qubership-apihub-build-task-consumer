@@ -24,6 +24,7 @@ import { PublishFilesConfigType } from './builder.schema'
 import { BuildStatus, SOURCES_FOLDER } from './builder.constants'
 import { BehaviorSubject, filter, interval, tap } from 'rxjs'
 import { handleServerError } from '../../utils/errors'
+import { toVersionOperation } from './builder.utils'
 
 @Injectable()
 export class BuilderService implements OnModuleInit {
@@ -146,9 +147,9 @@ export class BuilderService implements OnModuleInit {
 
           return new Blob([sources.readFile(fullPath)])
         },
-        versionResolver: async (packageId, version, includeOperations) => {
+        versionResolver: async (packageId, version, includeOperations, includeSummary) => {
           this.logger.debug(`[Builder Service] Start fetching version config(${version})`)
-          const response = await this.registry.getVersionConfig(version, packageId || config.packageId, includeOperations)
+          const response = await this.registry.getVersionConfig(version, packageId || config.packageId, includeOperations, includeSummary)
           this.logger.debug('[Builder Service] Finish fetching version config')
           return response
         },
@@ -174,11 +175,17 @@ export class BuilderService implements OnModuleInit {
 
           return comparison
         },
-        versionOperationsResolver: async (apiType, version, packageId, operationsIds, includeData) => {
+        versionOperationsResolver: async (apiType, version, packageId, operationsIds, includeData, operationsCount) => {
           this.logger.debug(`[Builder Service] Start fetching operations for version (${version})`)
-          const response = await this.registry.getVersionOperations(apiType, operationsIds, version, packageId || config.packageId, includeData)
+          let fetchTasks = [this.registry.getVersionOperations(apiType, operationsIds, version, packageId || config.packageId, includeData, operationsCount)]
+          if (operationsCount) {
+            const limit = 1000
+            fetchTasks = Array.from({ length: Math.ceil(operationsCount / limit) }, (_, index) =>
+              this.registry.getVersionOperations(apiType, [], version, packageId || config.packageId, false, limit, index))
+          }
+          const operationsDtos = await Promise.all(fetchTasks)
           this.logger.debug('[Builder Service] Finish fetching version operations')
-          return response
+          return { operations: operationsDtos.flatMap(({ operations }) => operations.map(toVersionOperation)) }
         },
         versionDeprecatedResolver: async (apiType, version, packageId, operationsIds) => {
           this.logger.debug(`[Builder Service] Start fetching deprecated operations for version (${version})`)
