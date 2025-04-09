@@ -151,7 +151,7 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100, page?: number): Promise<OperationsDto> {
+  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100, page?: number): Promise<OperationsDto | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('includeData', `${includeData}`)
     queryParams.append('limit', `${limit}`)
@@ -228,14 +228,11 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionConfig(versionId: string, packageId: string, includeOperations = false, includeSummary = false): Promise<ResolvedVersion | null> {
+  public async getVersionConfig(versionId: string, packageId: string): Promise<ResolvedVersion | null> {
     const encodedPackageKey = encodeURIComponent(packageId)
     const encodedVersionKey = encodeURIComponent(versionId)
-    const queryParams = new URLSearchParams()
-    queryParams.append('includeOperations', `${includeOperations}`)
-    queryParams.append('includeSummary', `${includeSummary}`)
 
-    const versionConfigUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}?${queryParams}`
+    const versionConfigUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}`
     this.logger.debug('Fetch config: ', versionConfigUrl)
     const logTag = '[getVersionConfig]'
 
