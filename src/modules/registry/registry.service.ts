@@ -228,11 +228,11 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionConfig(versionId: string, packageId: string): Promise<ResolvedVersion | null> {
+  public async getVersionConfig(versionId: string, packageId: string, includeOperations = false): Promise<ResolvedVersion | null> {
     const encodedPackageKey = encodeURIComponent(packageId)
     const encodedVersionKey = encodeURIComponent(versionId)
 
-    const versionConfigUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}`
+    const versionConfigUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}?includeOperations=${includeOperations}`
     this.logger.debug('Fetch config: ', versionConfigUrl)
     const logTag = '[getVersionConfig]'
 

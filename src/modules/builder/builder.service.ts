@@ -147,9 +147,9 @@ export class BuilderService implements OnModuleInit {
 
           return new Blob([sources.readFile(fullPath)])
         },
-        versionResolver: async (packageId, version) => {
+        versionResolver: async (packageId, version, includeOperations) => {
           this.logger.debug(`[Builder Service] Start fetching version config(${version})`)
-          const response = await this.registry.getVersionConfig(version, packageId || config.packageId)
+          const response = await this.registry.getVersionConfig(version, packageId || config.packageId, includeOperations)
           this.logger.debug('[Builder Service] Finish fetching version config')
           return response
         },
