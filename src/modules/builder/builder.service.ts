@@ -24,7 +24,7 @@ import { PublishFilesConfigType } from './builder.schema'
 import { BuildStatus, SOURCES_FOLDER } from './builder.constants'
 import { BehaviorSubject, filter, interval, tap } from 'rxjs'
 import { handleServerError } from '../../utils/errors'
-import { toVersionOperation } from './builder.utils'
+import { EMPTY_OPERATIONS, toVersionOperation } from './builder.utils'
 
 @Injectable()
 export class BuilderService implements OnModuleInit {
@@ -177,7 +177,6 @@ export class BuilderService implements OnModuleInit {
         },
         versionOperationsResolver: async (apiType, version, packageId, operationsIds, includeData) => {
           this.logger.debug(`[Builder Service] Start fetching operations for version (${version})`)
-          const EMPTY_OPERATIONS = { operations: [] }
           const limit = includeData ? 100 : 1000
           const result = []
           let page = 0

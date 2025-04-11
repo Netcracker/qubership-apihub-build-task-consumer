@@ -32,6 +32,10 @@ export type OperationsDto = Readonly<{
 }>
 export type OperationDto = RestOperationDto | GraphQlOperationDto
 
+export const EMPTY_OPERATIONS: OperationsDto = {
+  operations: []
+}
+
 export const API_TYPE_REST = REST_API_TYPE
 export const API_TYPE_GRAPHQL = GRAPHQL_API_TYPE
 
