@@ -213,6 +213,12 @@ export class BuilderService implements OnModuleInit {
           this.logger.debug('[Builder Service] Finish fetching version documents')
           return response
         },
+        templateResolver: async (apiType, version, packageId, filterByOperationGroup) => {
+          this.logger.debug(`[Builder Service] Start fetching template file for version (${version})`)
+          const template = await this.registry.getGroupExportTemplate(packageId, version, apiType, filterByOperationGroup)
+          this.logger.debug('[Builder Service] Finish fetching template file')
+          return template
+        },
       },
       configuration: {
         batchSize: this.operationsBatch,

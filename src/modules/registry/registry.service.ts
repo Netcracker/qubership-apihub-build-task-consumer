@@ -186,7 +186,7 @@ export class RegistryService implements OnModuleInit {
 
     const versionDocumentsUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${filterByOperationGroup}/transformation/documents?${queryParams}`
     this.logger.debug(`Fetch documents (page=${page}): `, versionDocumentsUrl)
-    const logTag = '[getDeprecatedOperations]'
+    const logTag = '[getVersionDocuments]'
 
     return lastValueFrom(this.httpService
       .get(versionDocumentsUrl, { headers: this.headers })
@@ -242,6 +242,35 @@ export class RegistryService implements OnModuleInit {
         catchError(err => {
           this.logger.error(logTag, err?.response?.data ?? err)
           return of(null)
+        }),
+      ),
+    )
+  }
+
+  public async getGroupExportTemplate(
+    packageId: string,
+    versionId: string,
+    apiType: string,
+    groupName: string,
+  ): Promise<string> {
+    const encodedPackageKey = encodeURIComponent(packageId)
+    const encodedVersionKey = encodeURIComponent(versionId)
+    const encodedGroupName = encodeURIComponent(groupName)
+
+    const templateUrl = `${this.baseUrl}/api/v1/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${encodedGroupName}/template`
+    this.logger.debug('Fetch groups template: ', templateUrl)
+    const logTag = '[getGroupExportTemplate]'
+
+    return lastValueFrom(this.httpService
+      .get(templateUrl, { headers: this.headers, responseType: 'arraybuffer' })
+      .pipe(
+        retry({ delay: this.requestRetryHandler(logTag) }),
+        map((response) => Buffer.from(response.data).toString()),
+        catchError(err => {
+          if (err.response?.status !== 404) {
+            this.logger.error(logTag, err?.response?.data ?? err)
+          }
+          return of('')
         }),
       ),
     )
