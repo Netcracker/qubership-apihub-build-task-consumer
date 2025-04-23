@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PackageVersionBuilder, ResolvedDocuments } from '@netcracker/qubership-apihub-api-processor'
+import { PackageVersionBuilder, ResolvedGroupDocuments, ResolvedVersionDocuments } from '@netcracker/qubership-apihub-api-processor'
 import { ConfigService } from '@nestjs/config'
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
 import AdmZip from 'adm-zip'
@@ -186,16 +186,16 @@ export class BuilderService implements OnModuleInit {
           this.logger.debug('[Builder Service] Finish fetching deprecated operations')
           return response
         },
-        versionDocumentsResolver: async (apiType, version, packageId, filterByOperationGroup) => {
-          this.logger.debug(`[Builder Service] Start fetching documents for version (${version})`)
-          const response: ResolvedDocuments = { documents: [] }
+        groupDocumentsResolver: async (apiType, version, packageId, filterByOperationGroup) => {
+          this.logger.debug(`[Builder Service] Start fetching documents for operation group (${filterByOperationGroup})`)
+          const response: ResolvedGroupDocuments = { documents: [], packages: {} }
 
           const LIMIT = 100
           let page = 0
 
           let documentsCount = LIMIT
           do {
-            const { documents } = await this.registry.getVersionDocuments(
+            const { documents, packages } = await this.registry.getGroupDocuments(
               apiType,
               version,
               packageId || config.packageId,
@@ -205,6 +205,34 @@ export class BuilderService implements OnModuleInit {
             )
 
             response.documents = [...response.documents, ...documents]
+            response.packages = {...response.packages, ...packages}
+
+            page += 1
+            documentsCount = documents.length
+          } while (documentsCount === LIMIT)
+
+          this.logger.debug('[Builder Service] Finish fetching operation group documents')
+          return response
+        },
+        versionDocumentsResolver: async (apiType, version, packageId) => {
+          this.logger.debug(`[Builder Service] Start fetching documents for version (${version})`)
+          const response: ResolvedVersionDocuments = { documents: [], packages: {} }
+
+          const LIMIT = 100
+          let page = 0
+
+          let documentsCount = LIMIT
+          do {
+            const { documents, packages } = await this.registry.getVersionDocuments(
+              apiType,
+              version,
+              packageId || config.packageId,
+              page,
+              LIMIT,
+            )
+
+            response.documents = [...response.documents, ...documents]
+            response.packages = {...response.packages, ...packages}
 
             page += 1
             documentsCount = documents.length

@@ -23,9 +23,10 @@ import { BuildStatus } from '../builder/builder.constants'
 import { getResponseError } from '../../utils/errors'
 import {
   ResolvedDeprecatedOperations,
-  ResolvedDocuments,
+  ResolvedGroupDocuments,
   ResolvedOperations,
   ResolvedVersion,
+  ResolvedVersionDocuments,
 } from '@netcracker/qubership-apihub-api-processor'
 import AdmZip from 'adm-zip'
 import { toBackendBuildStatus } from 'src/utils/mapper'
@@ -176,7 +177,7 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionDocuments(apiType: string, version: string, packageId: string, filterByOperationGroup: string, page: number, limit = 100): Promise<ResolvedDocuments> {
+  public async getGroupDocuments(apiType: string, version: string, packageId: string, filterByOperationGroup: string, page: number, limit = 100): Promise<ResolvedGroupDocuments | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('limit', `${limit}`)
     queryParams.append('page', `${page}`)
@@ -184,8 +185,35 @@ export class RegistryService implements OnModuleInit {
     const encodedPackageKey = encodeURIComponent(packageId)
     const encodedVersionKey = encodeURIComponent(version)
 
-    const versionDocumentsUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${filterByOperationGroup}/transformation/documents?${queryParams}`
-    this.logger.debug(`Fetch documents (page=${page}): `, versionDocumentsUrl)
+    // todo check if there's a need to encode filterByOperationGroup
+    const versionDocumentsUrl = `${this.baseUrl}/api/v3/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${filterByOperationGroup}/documents?${queryParams}`
+    this.logger.debug(`Fetch operation group documents (page=${page}): `, versionDocumentsUrl)
+    const logTag = '[getGroupDocuments]'
+
+    return lastValueFrom(this.httpService
+      .get(versionDocumentsUrl, { headers: this.headers })
+      .pipe(
+        retry({ delay: this.requestRetryHandler(logTag) }),
+        map(({ data }) => data),
+        catchError(err => {
+          this.logger.error(logTag, err?.response?.data ?? err)
+          return of(null)
+        }),
+      ),
+    )
+  }
+
+  public async getVersionDocuments(apiType: string, version: string, packageId: string, page: number, limit = 100): Promise<ResolvedVersionDocuments | null> {
+    const queryParams = new URLSearchParams()
+    apiType && queryParams.append('apiType', `${apiType}`)
+    queryParams.append('limit', `${limit}`)
+    queryParams.append('page', `${page}`)
+
+    const encodedPackageKey = encodeURIComponent(packageId)
+    const encodedVersionKey = encodeURIComponent(version)
+
+    const versionDocumentsUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}/documents?${queryParams}`
+    this.logger.debug(`Fetch version documents (page=${page}): `, versionDocumentsUrl)
     const logTag = '[getVersionDocuments]'
 
     return lastValueFrom(this.httpService
