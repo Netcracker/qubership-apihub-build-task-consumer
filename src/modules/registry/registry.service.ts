@@ -30,6 +30,7 @@ import {
 } from '@netcracker/qubership-apihub-api-processor'
 import AdmZip from 'adm-zip'
 import { toBackendBuildStatus } from 'src/utils/mapper'
+import { Task } from 'src/types'
 
 @Injectable()
 export class RegistryService implements OnModuleInit {
@@ -50,7 +51,7 @@ export class RegistryService implements OnModuleInit {
     }
   }
 
-  public async findTask() {
+  public async findTask(): Promise<Task | null> {
     const newTaskUrl = `${this.baseUrl}/api/v2/builders/${this.builderId}/tasks`
     const logTag = '[findTask]'
     return lastValueFrom(this.httpService
@@ -151,7 +152,7 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100): Promise<ResolvedOperations> {
+  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100): Promise<ResolvedOperations | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('includeData', `${includeData}`)
     queryParams.append('limit', `${limit}`)
@@ -229,7 +230,7 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getDeprecatedOperations(apiType: string, operations: string[] | null, version: string, packageId: string): Promise<ResolvedDeprecatedOperations> {
+  public async getDeprecatedOperations(apiType: string, operations: string[] | undefined, version: string, packageId: string): Promise<ResolvedDeprecatedOperations | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('includeDeprecatedItems', `${true}`)
     operations && operations.length && queryParams.append('ids', `${operations.join(',')}`)

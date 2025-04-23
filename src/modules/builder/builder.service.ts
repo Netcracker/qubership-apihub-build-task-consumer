@@ -24,6 +24,8 @@ import { PublishFilesConfigType } from './builder.schema'
 import { BuildStatus, SOURCES_FOLDER } from './builder.constants'
 import { BehaviorSubject, filter, interval, tap } from 'rxjs'
 import { handleServerError } from '../../utils/errors'
+import { FileId } from '@netcracker/qubership-apihub-api-processor'
+import { Task } from 'src/types'
 
 @Injectable()
 export class BuilderService implements OnModuleInit {
@@ -33,7 +35,7 @@ export class BuilderService implements OnModuleInit {
   private requestInterval = this.config.get<number>('requestInterval')
   private operationsBatch = this.config.get<number>('operationsBatch')
 
-  private builder$ = new BehaviorSubject(null)
+  private builder$ = new BehaviorSubject<Task | null>(null)
   private finder$ = new BehaviorSubject<boolean>(true)
   private isBuilding$ = new BehaviorSubject<boolean>(false)
   private isFinding$ = new BehaviorSubject<boolean>(true)
@@ -52,7 +54,7 @@ export class BuilderService implements OnModuleInit {
     this.requestInterval$.subscribe()
 
     this.builder$.pipe(
-      filter((value) => value),
+      filter((value): value is Task => !!value),
     ).subscribe(async (task) => {
       this.setBuilding(true)
 
@@ -137,14 +139,19 @@ export class BuilderService implements OnModuleInit {
 
     const builder = new PackageVersionBuilder(config, {
       resolvers: {
-        fileResolver: async (fileId) => {
+        fileResolver: async (fileId: FileId): Promise<Blob | null> => {
           const fullPath = `${SOURCES_FOLDER}/${fileId}`
           const filePath = fileKeys?.find((key) => key.includes(fullPath))
-          if (!filePath || !fileKeys) {
+          if (!filePath || !fileKeys || !sources) {
+            return null
+          }
+          const file = sources.readFile(fullPath)
+          if (!file) {
+            this.logger.error(`[Builder Service] Error during reading file ${fullPath} from sources`)
             return null
           }
 
-          return new Blob([sources.readFile(fullPath)])
+          return new Blob([file])
         },
         versionResolver: async (packageId, version, includeOperations) => {
           this.logger.debug(`[Builder Service] Start fetching version config(${version})`)
@@ -176,6 +183,8 @@ export class BuilderService implements OnModuleInit {
         },
         versionOperationsResolver: async (apiType, version, packageId, operationsIds, includeData) => {
           this.logger.debug(`[Builder Service] Start fetching operations for version (${version})`)
+          // todo
+          // @ts-ignore
           const response = await this.registry.getVersionOperations(apiType, operationsIds, version, packageId || config.packageId, includeData)
           this.logger.debug('[Builder Service] Finish fetching version operations')
           return response
@@ -202,7 +211,7 @@ export class BuilderService implements OnModuleInit {
               filterByOperationGroup,
               page,
               LIMIT,
-            )
+            ) ?? { documents: [], packages: {} }
 
             response.documents = [...response.documents, ...documents]
             response.packages = {...response.packages, ...packages}
@@ -229,7 +238,7 @@ export class BuilderService implements OnModuleInit {
               packageId || config.packageId,
               page,
               LIMIT,
-            )
+            ) ?? { documents: [], packages: {} }
 
             response.documents = [...response.documents, ...documents]
             response.packages = {...response.packages, ...packages}
