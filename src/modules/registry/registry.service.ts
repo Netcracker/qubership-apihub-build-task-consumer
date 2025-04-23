@@ -23,12 +23,14 @@ import { BuildStatus } from '../builder/builder.constants'
 import { getResponseError } from '../../utils/errors'
 import {
   ResolvedDeprecatedOperations,
-  ResolvedDocuments,
+  ResolvedGroupDocuments,
   ResolvedOperations,
   ResolvedVersion,
+  ResolvedVersionDocuments,
 } from '@netcracker/qubership-apihub-api-processor'
 import AdmZip from 'adm-zip'
 import { toBackendBuildStatus } from 'src/utils/mapper'
+import { Task } from 'src/types'
 
 @Injectable()
 export class RegistryService implements OnModuleInit {
@@ -49,7 +51,7 @@ export class RegistryService implements OnModuleInit {
     }
   }
 
-  public async findTask() {
+  public async findTask(): Promise<Task | null> {
     const newTaskUrl = `${this.baseUrl}/api/v2/builders/${this.builderId}/tasks`
     const logTag = '[findTask]'
     return lastValueFrom(this.httpService
@@ -150,7 +152,7 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100): Promise<ResolvedOperations> {
+  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100): Promise<ResolvedOperations | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('includeData', `${includeData}`)
     queryParams.append('limit', `${limit}`)
@@ -176,7 +178,7 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionDocuments(apiType: string, version: string, packageId: string, filterByOperationGroup: string, page: number, limit = 100): Promise<ResolvedDocuments> {
+  public async getGroupDocuments(apiType: string, version: string, packageId: string, filterByOperationGroup: string, page: number, limit = 100): Promise<ResolvedGroupDocuments | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('limit', `${limit}`)
     queryParams.append('page', `${page}`)
@@ -184,9 +186,10 @@ export class RegistryService implements OnModuleInit {
     const encodedPackageKey = encodeURIComponent(packageId)
     const encodedVersionKey = encodeURIComponent(version)
 
-    const versionDocumentsUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${filterByOperationGroup}/transformation/documents?${queryParams}`
-    this.logger.debug(`Fetch documents (page=${page}): `, versionDocumentsUrl)
-    const logTag = '[getDeprecatedOperations]'
+    // todo check if there's a need to encode filterByOperationGroup
+    const versionDocumentsUrl = `${this.baseUrl}/api/v3/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${filterByOperationGroup}/documents?${queryParams}`
+    this.logger.debug(`Fetch operation group documents (page=${page}): `, versionDocumentsUrl)
+    const logTag = '[getGroupDocuments]'
 
     return lastValueFrom(this.httpService
       .get(versionDocumentsUrl, { headers: this.headers })
@@ -201,7 +204,33 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getDeprecatedOperations(apiType: string, operations: string[] | null, version: string, packageId: string): Promise<ResolvedDeprecatedOperations> {
+  public async getVersionDocuments(apiType: string, version: string, packageId: string, page: number, limit = 100): Promise<ResolvedVersionDocuments | null> {
+    const queryParams = new URLSearchParams()
+    apiType && queryParams.append('apiType', `${apiType}`)
+    queryParams.append('limit', `${limit}`)
+    queryParams.append('page', `${page}`)
+
+    const encodedPackageKey = encodeURIComponent(packageId)
+    const encodedVersionKey = encodeURIComponent(version)
+
+    const versionDocumentsUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}/documents?${queryParams}`
+    this.logger.debug(`Fetch version documents (page=${page}): `, versionDocumentsUrl)
+    const logTag = '[getVersionDocuments]'
+
+    return lastValueFrom(this.httpService
+      .get(versionDocumentsUrl, { headers: this.headers })
+      .pipe(
+        retry({ delay: this.requestRetryHandler(logTag) }),
+        map(({ data }) => data),
+        catchError(err => {
+          this.logger.error(logTag, err?.response?.data ?? err)
+          return of(null)
+        }),
+      ),
+    )
+  }
+
+  public async getDeprecatedOperations(apiType: string, operations: string[] | undefined, version: string, packageId: string): Promise<ResolvedDeprecatedOperations | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('includeDeprecatedItems', `${true}`)
     operations && operations.length && queryParams.append('ids', `${operations.join(',')}`)
@@ -242,6 +271,35 @@ export class RegistryService implements OnModuleInit {
         catchError(err => {
           this.logger.error(logTag, err?.response?.data ?? err)
           return of(null)
+        }),
+      ),
+    )
+  }
+
+  public async getGroupExportTemplate(
+    packageId: string,
+    versionId: string,
+    apiType: string,
+    groupName: string,
+  ): Promise<string> {
+    const encodedPackageKey = encodeURIComponent(packageId)
+    const encodedVersionKey = encodeURIComponent(versionId)
+    const encodedGroupName = encodeURIComponent(groupName)
+
+    const templateUrl = `${this.baseUrl}/api/v1/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${encodedGroupName}/template`
+    this.logger.debug('Fetch groups template: ', templateUrl)
+    const logTag = '[getGroupExportTemplate]'
+
+    return lastValueFrom(this.httpService
+      .get(templateUrl, { headers: this.headers, responseType: 'arraybuffer' })
+      .pipe(
+        retry({ delay: this.requestRetryHandler(logTag) }),
+        map((response) => Buffer.from(response.data).toString()),
+        catchError(err => {
+          if (err.response?.status !== 404) {
+            this.logger.error(logTag, err?.response?.data ?? err)
+          }
+          return of('')
         }),
       ),
     )

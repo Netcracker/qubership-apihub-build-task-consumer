@@ -15,7 +15,7 @@
         "@nestjs/core": "8.4.7",
         "@nestjs/platform-express": "8.4.7",
         "@nestjs/swagger": "5.2.1",
-        "@netcracker/qubership-apihub-api-processor": "dev",
+        "@netcracker/qubership-apihub-api-processor": "feature-ignore-param-name-while-matching",
         "@sinclair/typebox": "^0.28.9",
         "adm-zip": "^0.5.10",
         "dotenv": "^16.0.3",
@@ -2175,9 +2175,9 @@
       "license": "MIT"
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "3.1.1-dev.20250413091739",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/3.1.1-dev.20250413091739/3203987d1b25c320a790a2a5a871acfda9b0bb14",
-      "integrity": "sha512-QkDUyang3FghD+sPbWkKG4bAY0PtY46s+6kEYpx3fwHx91z4qNVelJk8Y0GLr5vB18bIzibg5OLy5EataxDSEQ==",
+      "version": "3.1.1-feature-ignore-param-name-while-matching.20250421112627",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/3.1.1-feature-ignore-param-name-while-matching.20250421112627/1fb7e3652537d4d8a6091ca48cffd428eea6ece2",
+      "integrity": "sha512-pEOia9dU1g1ilfEwyzBys31jsp1T3J+quctejt870o97NP9ONUpKLuH6/lH+kN3Chn9vVTzD6klFYDzX/q0Q1A==",
       "license": "Apache-2.0",
       "dependencies": {
         "@netcracker/qubership-apihub-api-diff": "dev",

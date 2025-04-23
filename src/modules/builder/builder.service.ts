@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PackageVersionBuilder, ResolvedDocuments } from '@netcracker/qubership-apihub-api-processor'
+import { PackageVersionBuilder, ResolvedGroupDocuments, ResolvedVersionDocuments } from '@netcracker/qubership-apihub-api-processor'
 import { ConfigService } from '@nestjs/config'
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
 import AdmZip from 'adm-zip'
@@ -24,6 +24,8 @@ import { PublishFilesConfigType } from './builder.schema'
 import { BuildStatus, SOURCES_FOLDER } from './builder.constants'
 import { BehaviorSubject, filter, interval, tap } from 'rxjs'
 import { handleServerError } from '../../utils/errors'
+import { FileId } from '@netcracker/qubership-apihub-api-processor'
+import { Task } from 'src/types'
 
 @Injectable()
 export class BuilderService implements OnModuleInit {
@@ -33,7 +35,7 @@ export class BuilderService implements OnModuleInit {
   private requestInterval = this.config.get<number>('requestInterval')
   private operationsBatch = this.config.get<number>('operationsBatch')
 
-  private builder$ = new BehaviorSubject(null)
+  private builder$ = new BehaviorSubject<Task | null>(null)
   private finder$ = new BehaviorSubject<boolean>(true)
   private isBuilding$ = new BehaviorSubject<boolean>(false)
   private isFinding$ = new BehaviorSubject<boolean>(true)
@@ -52,7 +54,7 @@ export class BuilderService implements OnModuleInit {
     this.requestInterval$.subscribe()
 
     this.builder$.pipe(
-      filter((value) => value),
+      filter((value): value is Task => !!value),
     ).subscribe(async (task) => {
       this.setBuilding(true)
 
@@ -137,14 +139,19 @@ export class BuilderService implements OnModuleInit {
 
     const builder = new PackageVersionBuilder(config, {
       resolvers: {
-        fileResolver: async (fileId) => {
+        fileResolver: async (fileId: FileId): Promise<Blob | null> => {
           const fullPath = `${SOURCES_FOLDER}/${fileId}`
           const filePath = fileKeys?.find((key) => key.includes(fullPath))
-          if (!filePath || !fileKeys) {
+          if (!filePath || !fileKeys || !sources) {
+            return null
+          }
+          const file = sources.readFile(fullPath)
+          if (!file) {
+            this.logger.error(`[Builder Service] Error during reading file ${fullPath} from sources`)
             return null
           }
 
-          return new Blob([sources.readFile(fullPath)])
+          return new Blob([file])
         },
         versionResolver: async (packageId, version, includeOperations) => {
           this.logger.debug(`[Builder Service] Start fetching version config(${version})`)
@@ -176,6 +183,8 @@ export class BuilderService implements OnModuleInit {
         },
         versionOperationsResolver: async (apiType, version, packageId, operationsIds, includeData) => {
           this.logger.debug(`[Builder Service] Start fetching operations for version (${version})`)
+          // todo
+          // @ts-ignore
           const response = await this.registry.getVersionOperations(apiType, operationsIds, version, packageId || config.packageId, includeData)
           this.logger.debug('[Builder Service] Finish fetching version operations')
           return response
@@ -186,25 +195,53 @@ export class BuilderService implements OnModuleInit {
           this.logger.debug('[Builder Service] Finish fetching deprecated operations')
           return response
         },
-        versionDocumentsResolver: async (apiType, version, packageId, filterByOperationGroup) => {
-          this.logger.debug(`[Builder Service] Start fetching documents for version (${version})`)
-          const response: ResolvedDocuments = { documents: [] }
+        groupDocumentsResolver: async (apiType, version, packageId, filterByOperationGroup) => {
+          this.logger.debug(`[Builder Service] Start fetching documents for operation group (${filterByOperationGroup})`)
+          const response: ResolvedGroupDocuments = { documents: [], packages: {} }
 
           const LIMIT = 100
           let page = 0
 
           let documentsCount = LIMIT
           do {
-            const { documents } = await this.registry.getVersionDocuments(
+            const { documents, packages } = await this.registry.getGroupDocuments(
               apiType,
               version,
               packageId || config.packageId,
               filterByOperationGroup,
               page,
               LIMIT,
-            )
+            ) ?? { documents: [], packages: {} }
 
             response.documents = [...response.documents, ...documents]
+            response.packages = {...response.packages, ...packages}
+
+            page += 1
+            documentsCount = documents.length
+          } while (documentsCount === LIMIT)
+
+          this.logger.debug('[Builder Service] Finish fetching operation group documents')
+          return response
+        },
+        versionDocumentsResolver: async (apiType, version, packageId) => {
+          this.logger.debug(`[Builder Service] Start fetching documents for version (${version})`)
+          const response: ResolvedVersionDocuments = { documents: [], packages: {} }
+
+          const LIMIT = 100
+          let page = 0
+
+          let documentsCount = LIMIT
+          do {
+            const { documents, packages } = await this.registry.getVersionDocuments(
+              apiType,
+              version,
+              packageId || config.packageId,
+              page,
+              LIMIT,
+            ) ?? { documents: [], packages: {} }
+
+            response.documents = [...response.documents, ...documents]
+            response.packages = {...response.packages, ...packages}
 
             page += 1
             documentsCount = documents.length
@@ -212,6 +249,12 @@ export class BuilderService implements OnModuleInit {
 
           this.logger.debug('[Builder Service] Finish fetching version documents')
           return response
+        },
+        templateResolver: async (apiType, version, packageId, filterByOperationGroup) => {
+          this.logger.debug(`[Builder Service] Start fetching template file for version (${version})`)
+          const template = await this.registry.getGroupExportTemplate(packageId, version, apiType, filterByOperationGroup)
+          this.logger.debug('[Builder Service] Finish fetching template file')
+          return template
         },
       },
       configuration: {
