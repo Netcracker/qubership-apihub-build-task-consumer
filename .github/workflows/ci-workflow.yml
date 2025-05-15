@@ -36,14 +36,14 @@ jobs:
   calculate-ui-tag:
     if: github.event_name == 'pull_request'
     needs: build-docker-image
-    uses: netcracker/qubership-apihub-ci/.github/workflows/calculate-effective-tag.yaml@feature/use-effective-tags-for-test-run
+    uses: netcracker/qubership-apihub-ci/.github/workflows/calculate-effective-tag.yaml@main
     with:
       branch-name: ${{ github.head_ref }} # pass PR source branch
       repo-name: qubership-apihub-ui
   calculate-backend-tag:
     if: github.event_name == 'pull_request'
     needs: build-docker-image
-    uses: netcracker/qubership-apihub-ci/.github/workflows/calculate-effective-tag.yaml@feature/use-effective-tags-for-test-run
+    uses: netcracker/qubership-apihub-ci/.github/workflows/calculate-effective-tag.yaml@main
     with:
       branch-name: ${{ github.head_ref }} # pass PR source branch
       repo-name: qubership-apihub-backend
