@@ -78,7 +78,7 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async postBuildStatus(packageId: string, publishId: string, builderId: string, status: BuildStatus, data?: any): Promise<void> {
+  public async postBuildStatus(packageId: string, publishId: string, builderId: string, status: BuildStatus, data?: any, exportFileName?: string): Promise<void> {
     const formData = new FormData()
     formData.append('status', toBackendBuildStatus(status))
     // todo: uncomment the code below after the backend starts to support asynchronous publishing
@@ -90,7 +90,7 @@ export class RegistryService implements OnModuleInit {
       formData.append('errors', debugMessage ? `${errorMessage} (debug: ${debugMessage})` : errorMessage)
       this.logger.error(`[POST Build Status] Sending error ${errorMessage}`)
     } else if (status === BuildStatus.COMPLETE) {
-      formData.append('data', data, 'package.zip')
+      formData.append('data', data, exportFileName ?? 'package.zip')
       this.logger.log(`[POST Build Status] Sending completed`)
     }
 
@@ -204,7 +204,7 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionDocuments(apiType: string, version: string, packageId: string, page: number, limit = 100): Promise<ResolvedVersionDocuments | null> {
+  public async getVersionDocuments(version: string, packageId: string, page: number, limit = 100, apiType?: string): Promise<ResolvedVersionDocuments | null> {
     const queryParams = new URLSearchParams()
     apiType && queryParams.append('apiType', `${apiType}`)
     queryParams.append('limit', `${limit}`)
@@ -300,6 +300,36 @@ export class RegistryService implements OnModuleInit {
             this.logger.error(logTag, err?.response?.data ?? err)
           }
           return of('')
+        }),
+      ),
+    )
+  }
+
+  public async getPublishedDocumentRaw(
+    packageId: string,
+    versionId: string,
+    slug: string
+  ): Promise<File | null> {
+    const encodedPackageKey = encodeURIComponent(packageId)
+    const encodedVersionKey = encodeURIComponent(versionId)
+    const fileId = encodeURIComponent(slug)
+
+    const templateUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}/files/${fileId}/raw`
+    this.logger.debug('Fetch published document raw: ', templateUrl)
+    const logTag = '[getPublishedDocumentRaw]'
+
+    return lastValueFrom(this.httpService
+      .get(templateUrl, { headers: this.headers, responseType: 'arraybuffer' })
+      .pipe(
+        retry({ delay: this.requestRetryHandler(logTag) }),
+        map((response) => {
+          const contentType = response.headers['content-type']
+          const filename = response.headers['content-disposition'].split('filename=')[1].slice(1, -1)
+          return new File([response.data], filename, { type: contentType })
+        }),
+        catchError(err => {
+          this.logger.error(logTag, err?.response?.data ?? err)
+          return of(null)
         }),
       ),
     )

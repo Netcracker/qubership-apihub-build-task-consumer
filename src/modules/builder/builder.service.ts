@@ -115,11 +115,11 @@ export class BuilderService implements OnModuleInit {
     }, this.statusInterval)
 
     try {
-      const { packageVersion } = await this.buildVersionFile(config, sources)
+      const { packageVersion, fileName } = await this.buildVersionFile(config, sources)
       clearInterval(timer)
 
       this.logger.debug('[Send Result] Start post build status request')
-      await this.registry.postBuildStatus(config.packageId, config.publishId, builderId, BuildStatus.COMPLETE, packageVersion)
+      await this.registry.postBuildStatus(config.packageId, config.publishId, builderId, BuildStatus.COMPLETE, packageVersion, fileName)
       this.logger.debug('[Send Result] Finish post build status request')
     } catch (error) {
       handleServerError(error)
@@ -134,7 +134,7 @@ export class BuilderService implements OnModuleInit {
   async buildVersionFile(
     config: PublishFilesConfigType,
     sources?: AdmZip,
-  ) {
+  ): Promise<{ packageVersion: Buffer, fileName: string }> {
     const fileKeys = sources ? sources.getEntries().map(({ entryName }) => entryName) : null
 
     const builder = new PackageVersionBuilder(config, {
@@ -223,7 +223,7 @@ export class BuilderService implements OnModuleInit {
           this.logger.debug('[Builder Service] Finish fetching operation group documents')
           return response
         },
-        versionDocumentsResolver: async (apiType, version, packageId) => {
+        versionDocumentsResolver: async (version, packageId, apiType) => {
           this.logger.debug(`[Builder Service] Start fetching documents for version (${version})`)
           const response: ResolvedVersionDocuments = { documents: [], packages: {} }
 
@@ -233,11 +233,11 @@ export class BuilderService implements OnModuleInit {
           let documentsCount = LIMIT
           do {
             const { documents, packages } = await this.registry.getVersionDocuments(
-              apiType,
               version,
               packageId || config.packageId,
               page,
               LIMIT,
+              apiType,
             ) ?? { documents: [], packages: {} }
 
             response.documents = [...response.documents, ...documents]
@@ -256,6 +256,12 @@ export class BuilderService implements OnModuleInit {
           this.logger.debug('[Builder Service] Finish fetching template file')
           return template
         },
+        rawDocumentResolver: async (version, packageId, slug): Promise<File | null> => {
+          this.logger.debug(`[Builder Service] Start fetching raw file for version (${version})`)
+          const file = await this.registry.getPublishedDocumentRaw(packageId, version, slug)
+          this.logger.debug('[Builder Service] Finish fetching raw file')
+          return file
+        },
       },
       configuration: {
         batchSize: this.operationsBatch,
@@ -263,7 +269,7 @@ export class BuilderService implements OnModuleInit {
     })
 
     const { noChangeLog = false, buildType = 'build' } = config as any
-    const withoutChangelog = !!noChangeLog && buildType === 'build'
+    const withoutChangelog = noChangeLog && buildType === 'build'
     withoutChangelog && this.logger.log('[Builder Service] Run build without changelog')
 
     //override native logger
@@ -271,11 +277,8 @@ export class BuilderService implements OnModuleInit {
       this.logger.debug(message)
     }
     const result = await builder.run({ withoutChangelog })
-    const { notifications } = result
     this.logger.log(`[Builder Service] Built ${result.operations.size ?? 0} operations from ${config.packageId}/${config.version}`)
 
-    const packageVersion = await builder.createNodeVersionPackage()
-
-    return { notifications, packageVersion }
+    return await builder.createNodeVersionPackage()
   }
 }
