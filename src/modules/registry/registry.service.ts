@@ -31,6 +31,7 @@ import {
 import AdmZip from 'adm-zip'
 import { toBackendBuildStatus } from 'src/utils/mapper'
 import { Task } from 'src/types'
+import { OperationsDto } from '../builder/builder.utils'
 
 @Injectable()
 export class RegistryService implements OnModuleInit {
@@ -152,10 +153,11 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100): Promise<ResolvedOperations | null> {
+  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100, page?: number): Promise<ResolvedOperations | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('includeData', `${includeData}`)
     queryParams.append('limit', `${limit}`)
+    page && queryParams.append('page', `${page}`)
     operations && operations.length && queryParams.append('ids', `${operations.join(',')}`)
 
     const encodedPackageKey = encodeURIComponent(packageId)
