@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { PackageVersionBuilder, ResolvedGroupDocuments, ResolvedVersionDocuments } from '@netcracker/qubership-apihub-api-processor'
+import {
+  FileId,
+  PackageVersionBuilder,
+  ResolvedGroupDocuments,
+  ResolvedVersionDocuments,
+} from '@netcracker/qubership-apihub-api-processor'
 import { ConfigService } from '@nestjs/config'
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
 import AdmZip from 'adm-zip'
@@ -24,9 +29,8 @@ import { PublishFilesConfigType } from './builder.schema'
 import { BuildStatus, SOURCES_FOLDER } from './builder.constants'
 import { BehaviorSubject, filter, interval, tap } from 'rxjs'
 import { handleServerError } from '../../utils/errors'
-import { FileId } from '@netcracker/qubership-apihub-api-processor'
 import { Task } from 'src/types'
-import { EMPTY_OPERATIONS, toVersionOperation } from './builder.utils'
+import { EMPTY_OPERATIONS, OperationDto, toVersionOperation } from './builder.utils'
 
 @Injectable()
 export class BuilderService implements OnModuleInit {
@@ -185,16 +189,16 @@ export class BuilderService implements OnModuleInit {
         versionOperationsResolver: async (apiType, version, packageId, operationsIds, includeData) => {
           this.logger.debug(`[Builder Service] Start fetching operations for version (${version})`)
           const limit = includeData ? 100 : 1000
-          const result = []
+          const result: OperationDto[] = []
           let page = 0
           let operationsCount = 0
           while (page === 0 || operationsCount === limit) {
             const { operations } = await this.registry.getVersionOperations(
               apiType,
-              operationsIds,
               version,
               packageId || config.packageId,
-              includeData,
+              !!includeData,
+              operationsIds,
               limit,
               page,
             ) ?? EMPTY_OPERATIONS

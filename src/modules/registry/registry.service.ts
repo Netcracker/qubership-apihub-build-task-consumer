@@ -153,12 +153,12 @@ export class RegistryService implements OnModuleInit {
     )
   }
 
-  public async getVersionOperations(apiType: string, operations: string[] | null, version: string, packageId: string, includeData: boolean, limit = 100, page?: number): Promise<ResolvedOperations | null> {
+  public async getVersionOperations(apiType: string, version: string, packageId: string, includeData: boolean, operationsIds?: string[], limit = 100, page?: number): Promise<OperationsDto | null> {
     const queryParams = new URLSearchParams()
     queryParams.append('includeData', `${includeData}`)
     queryParams.append('limit', `${limit}`)
     page && queryParams.append('page', `${page}`)
-    operations && operations.length && queryParams.append('ids', `${operations.join(',')}`)
+    operationsIds && operationsIds.length && queryParams.append('ids', `${operationsIds.join(',')}`)
 
     const encodedPackageKey = encodeURIComponent(packageId)
     const encodedVersionKey = encodeURIComponent(version)
