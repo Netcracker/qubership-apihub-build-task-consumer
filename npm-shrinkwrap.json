@@ -15,7 +15,7 @@
         "@nestjs/core": "^10.0.0",
         "@nestjs/platform-express": "^10.0.0",
         "@nestjs/swagger": "^7.0.0",
-        "@netcracker/qubership-apihub-api-processor": "4.0.0",
+        "@netcracker/qubership-apihub-api-processor": "feature-export-build-tasks-support",
         "@sinclair/typebox": "^0.32.1",
         "adm-zip": "^0.5.10",
         "dotenv": "^16.3.1",
@@ -1859,13 +1859,13 @@
       "license": "MIT"
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "4.0.0",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/4.0.0/501c9e5bda0e50a3e2e427fc6a4dc67582dbd590",
-      "integrity": "sha512-lGqYlVlciioDteMkSewog4+yDymuc7IcYesBCoQULFyClaXMMWmPiFkuymLslSBBGAGu0G7PVe6BCHDsG7K81Q==",
+      "version": "4.0.1-feature-export-build-tasks-support.20250523151529",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/4.0.1-feature-export-build-tasks-support.20250523151529/16c8731be1f3be36ba11e24d142ac524ccd8a474",
+      "integrity": "sha512-UErsudJeA5W3OZX3DFmmtckOF/GNWLRkR2ppthz27f2vtDjNdu3BernCDZO1NaInEYWEe23ZIVtR6lE7gnkg1w==",
       "license": "Apache-2.0",
       "dependencies": {
-        "@netcracker/qubership-apihub-api-diff": "2.0.0",
-        "@netcracker/qubership-apihub-api-unifier": "2.0.0",
+        "@netcracker/qubership-apihub-api-diff": "feature-remove-oas-extensions",
+        "@netcracker/qubership-apihub-api-unifier": "feature-remove-oas-extensions",
         "@netcracker/qubership-apihub-graphapi": "1.0.8",
         "@netcracker/qubership-apihub-json-crawl": "1.0.4",
         "adm-zip": "0.5.10",
