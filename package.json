@@ -9,8 +9,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "development:link": "npm link && npm link @netcracker/qubership-apihub-api-processor",
-    "development:unlink": "npm unlink && npm unlink @netcracker/qubership-apihub-api-processor",
+    "development:link": "npm link && npm link @netcracker/qubership-apihub-api-processor --save",
+    "development:unlink": "npm unlink @netcracker/qubership-apihub-api-processor --no-save",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -22,7 +22,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config jest-e2e.json",
-    "update-lock-file": "update-lock-file @netcracker"    
+    "update-lock-file": "update-lock-file @netcracker"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.0",
@@ -36,9 +36,9 @@
     "adm-zip": "^0.5.10",
     "dotenv": "^16.3.1",
     "form-data": "^4.0.0",
-    "openapi-types": "^12.1.0",
     "js-yaml": "4.1.0",
     "jszip": "^3.10.1",
+    "openapi-types": "^12.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^4.6.3"
