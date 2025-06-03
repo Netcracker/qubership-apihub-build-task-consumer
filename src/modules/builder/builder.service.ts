@@ -120,11 +120,11 @@ export class BuilderService implements OnModuleInit {
     }, this.statusInterval)
 
     try {
-      const { packageVersion, fileName } = await this.buildVersionFile(config, sources)
+      const { packageVersion, exportFileName } = await this.buildVersionFile(config, sources)
       clearInterval(timer)
 
       this.logger.debug('[Send Result] Start post build status request')
-      await this.registry.postBuildStatus(config.packageId, config.publishId, builderId, BuildStatus.COMPLETE, packageVersion, fileName)
+      await this.registry.postBuildStatus(config.packageId, config.publishId, builderId, BuildStatus.COMPLETE, packageVersion, exportFileName)
       this.logger.debug('[Send Result] Finish post build status request')
     } catch (error) {
       handleServerError(error)
@@ -139,7 +139,7 @@ export class BuilderService implements OnModuleInit {
   async buildVersionFile(
     config: PublishFilesConfigType,
     sources?: AdmZip,
-  ): Promise<{ packageVersion: Buffer, fileName: string }> {
+  ): Promise<{ packageVersion: Buffer, exportFileName?: string }> {
     const fileKeys = sources ? sources.getEntries().map(({ entryName }) => entryName) : null
 
     const builder = new PackageVersionBuilder(config, {
