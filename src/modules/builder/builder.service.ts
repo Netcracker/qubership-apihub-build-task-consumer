@@ -16,6 +16,7 @@
 
 import {
   FileId,
+  TemplatePath,
   PackageVersionBuilder,
   ResolvedGroupDocuments,
   ResolvedVersionDocuments,
@@ -31,6 +32,8 @@ import { BehaviorSubject, filter, interval, tap } from 'rxjs'
 import { handleServerError } from '../../utils/errors'
 import { Task } from 'src/types'
 import { EMPTY_OPERATIONS, OperationDto, toVersionOperation } from './builder.utils'
+import fs from 'fs/promises'
+import path from 'path'
 
 @Injectable()
 export class BuilderService implements OnModuleInit {
@@ -144,6 +147,19 @@ export class BuilderService implements OnModuleInit {
 
     const builder = new PackageVersionBuilder(config, {
       resolvers: {
+        templateResolver: async (templatePath: TemplatePath): Promise<Blob | null> => {
+          try {
+            const template = await fs.readFile(path.join(__dirname, '..', '..', '..', 'templates', templatePath))
+            return new Blob([template])
+          } catch (error) {
+            if (error instanceof Error) {
+              this.logger.error(`[Builder Service] Error during reading template ${error.message}`, error.stack)
+            } else {
+              this.logger.error(`[Builder Service] Unknown error while reading template: ${JSON.stringify(error)}`)
+            }
+            return null
+          }
+        },
         fileResolver: async (fileId: FileId): Promise<Blob | null> => {
           const fullPath = `${SOURCES_FOLDER}/${fileId}`
           const filePath = fileKeys?.find((key) => key.includes(fullPath))
@@ -234,7 +250,7 @@ export class BuilderService implements OnModuleInit {
             ) ?? { documents: [], packages: {} }
 
             response.documents = [...response.documents, ...documents]
-            response.packages = {...response.packages, ...packages}
+            response.packages = { ...response.packages, ...packages }
 
             page += 1
             documentsCount = documents.length
@@ -261,7 +277,7 @@ export class BuilderService implements OnModuleInit {
             ) ?? { documents: [], packages: {} }
 
             response.documents = [...response.documents, ...documents]
-            response.packages = {...response.packages, ...packages}
+            response.packages = { ...response.packages, ...packages }
 
             page += 1
             documentsCount = documents.length
@@ -270,7 +286,7 @@ export class BuilderService implements OnModuleInit {
           this.logger.debug('[Builder Service] Finish fetching version documents')
           return response
         },
-        templateResolver: async (apiType, version, packageId, filterByOperationGroup) => {
+        groupExportTemplateResolver: async (apiType, version, packageId, filterByOperationGroup): Promise<string> => {
           this.logger.debug(`[Builder Service] Start fetching template file for version (${version})`)
           const template = await this.registry.getGroupExportTemplate(packageId, version, apiType, filterByOperationGroup)
           this.logger.debug('[Builder Service] Finish fetching template file')
