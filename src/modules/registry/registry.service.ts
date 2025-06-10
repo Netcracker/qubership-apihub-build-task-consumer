@@ -359,7 +359,7 @@ export class RegistryService implements OnModuleInit {
 
   private requestRetryHandler(logMessage: string): (error: any, retryCount: number) => ObservableInput<any> {
     return (error, retryCount) => {
-      if (retryCount > RETRY_COUNT || NO_RETRY_STATUSES.includes(error?.response?.data?.status)) {
+      if (retryCount > RETRY_COUNT || NO_RETRY_STATUSES.includes(error?.response?.status)) {
         return throwError(() => error)
       }
       this.logger.debug(`${logMessage}`, `[RETRY] status: ${error?.response?.data?.status} attempt: ${retryCount}`)
