@@ -1858,9 +1858,9 @@
       "integrity": "sha512-G3BSX9cfKttjr+2o1O22tYMLq0DPluZnYtq1rXumE1SpL/F/SLIfHx08WYQoWSIpeMYf8sRbJ8++71+v6Pnxfg=="
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "4.0.1-feature-export-build-tasks-support.20250609100541",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/4.0.1-feature-export-build-tasks-support.20250609100541/b40de30c37de715d5d266c59977a8944fbcf1caa",
-      "integrity": "sha512-0PTbugHa/M7muQsvUknUQX83jDwHyjipi7AMDXa4izHzdP1hE1UARKxyYnJSM87KUTRbExJVrf76awWyKPnlHQ==",
+      "version": "4.0.1-feature-export-build-tasks-support.20250610141754",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/4.0.1-feature-export-build-tasks-support.20250610141754/fd9fb9002ea339fc9771f35ba2b2cb2ec53f351e",
+      "integrity": "sha512-9Ir0ZowXmALAF8BvphsVM/HGSsWqFoi6e4Ee+hx2beK/+ENhm0RdvtOaJa3bLgaarA/RCznbYumvpQs33pEXKQ==",
       "license": "Apache-2.0",
       "dependencies": {
         "@netcracker/qubership-apihub-api-diff": "feature-remove-oas-extensions",

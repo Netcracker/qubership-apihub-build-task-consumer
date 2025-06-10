@@ -150,7 +150,7 @@ export class BuilderService implements OnModuleInit {
       resolvers: {
         templateResolver: async (templatePath: TemplatePath): Promise<Blob | null> => {
           try {
-            const template = await fs.readFile(path.join(__dirname, '..', '..', '..', 'templates', templatePath))
+            const template = await fs.readFile(path.join(__dirname, '..', '..', 'templates', templatePath))
             return new Blob([template])
           } catch (error) {
             if (error instanceof Error) {
