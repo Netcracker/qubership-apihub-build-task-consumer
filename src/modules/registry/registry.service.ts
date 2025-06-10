@@ -187,9 +187,9 @@ export class RegistryService implements OnModuleInit {
 
     const encodedPackageKey = encodeURIComponent(packageId)
     const encodedVersionKey = encodeURIComponent(version)
+    const encodedGroupName = encodeURIComponent(filterByOperationGroup)
 
-    // todo check if there's a need to encode filterByOperationGroup
-    const versionDocumentsUrl = `${this.baseUrl}/api/v3/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${filterByOperationGroup}/documents?${queryParams}`
+    const versionDocumentsUrl = `${this.baseUrl}/api/v3/packages/${encodedPackageKey}/versions/${encodedVersionKey}/${apiType}/groups/${encodedGroupName}/documents?${queryParams}`
     this.logger.debug(`Fetch operation group documents (page=${page}): `, versionDocumentsUrl)
     const logTag = '[getGroupDocuments]'
 
