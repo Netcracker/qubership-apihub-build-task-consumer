@@ -20,6 +20,7 @@ import {
   PackageVersionBuilder,
   ResolvedGroupDocuments,
   ResolvedVersionDocuments,
+  ResolvedPackage,
 } from '@netcracker/qubership-apihub-api-processor'
 import { ConfigService } from '@nestjs/config'
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
@@ -178,6 +179,12 @@ export class BuilderService implements OnModuleInit {
           this.logger.debug(`[Builder Service] Start fetching version config(${version})`)
           const response = await this.registry.getVersionConfig(version, packageId || config.packageId, includeOperations)
           this.logger.debug('[Builder Service] Finish fetching version config')
+          return response
+        },
+        packageResolver: async (packageId: string): Promise<ResolvedPackage | null> => {
+          this.logger.debug(`[Builder Service] Start fetching package (${packageId})`)
+          const response = await this.registry.getPackage(packageId)
+          this.logger.debug('[Builder Service] Finish fetching package')
           return response
         },
         versionReferencesResolver: async (version, packageId) => {

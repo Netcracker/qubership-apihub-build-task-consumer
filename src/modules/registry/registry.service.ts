@@ -24,7 +24,7 @@ import { getResponseError } from '../../utils/errors'
 import {
   ResolvedDeprecatedOperations,
   ResolvedGroupDocuments,
-  ResolvedOperations,
+  ResolvedPackage,
   ResolvedVersion,
   ResolvedVersionDocuments,
 } from '@netcracker/qubership-apihub-api-processor'
@@ -267,6 +267,26 @@ export class RegistryService implements OnModuleInit {
 
     return lastValueFrom(this.httpService
       .get(versionConfigUrl, { headers: this.headers })
+      .pipe(
+        retry({ delay: this.requestRetryHandler(logTag) }),
+        map(({ data }) => data),
+        catchError(err => {
+          this.logger.error(logTag, err?.response?.data ?? err)
+          return of(null)
+        }),
+      ),
+    )
+  }
+
+  public async getPackage(packageId: string): Promise<ResolvedPackage | null> {
+    const encodedPackageKey = encodeURIComponent(packageId)
+
+    const packageUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}`
+    this.logger.debug('Fetch package: ', packageUrl)
+    const logTag = '[getPackage]'
+
+    return lastValueFrom(this.httpService
+      .get(packageUrl, { headers: this.headers })
       .pipe(
         retry({ delay: this.requestRetryHandler(logTag) }),
         map(({ data }) => data),
