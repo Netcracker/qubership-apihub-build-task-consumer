@@ -1843,11 +1843,11 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-diff": {
-      "version": "2.0.1-feature-remove-oas-extensions.20250603134948",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-diff/2.0.1-feature-remove-oas-extensions.20250603134948/8af199fcc3a6e3572054be3f9638e653788591ad",
-      "integrity": "sha512-3e1Aauu2MTXTvf1FyGL3DT50puCpHJPmpbWQahtTYmgBN0FZgCz1T0zKTetGGgmhMh4lf5BdY6ieuDcSePrqFg==",
+      "version": "2.0.2-dev.20250610151714",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-diff/2.0.2-dev.20250610151714/5b7fb6c3c0e2bf74b313118957a50659dc268485",
+      "integrity": "sha512-piHQr3QgKJQvYGPDGxFNhb0n1J9tEb57DJ4c6/YfaBNlIs0WnOM3GHpFIcXmhNLgoaImeTOzfDo1WaFuh1rvRg==",
       "dependencies": {
-        "@netcracker/qubership-apihub-api-unifier": "feature-remove-oas-extensions",
+        "@netcracker/qubership-apihub-api-unifier": "dev",
         "@netcracker/qubership-apihub-json-crawl": "1.0.4",
         "fast-equals": "4.0.3"
       }
@@ -1858,13 +1858,13 @@
       "integrity": "sha512-G3BSX9cfKttjr+2o1O22tYMLq0DPluZnYtq1rXumE1SpL/F/SLIfHx08WYQoWSIpeMYf8sRbJ8++71+v6Pnxfg=="
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "4.0.1-feature-export-build-tasks-support.20250610141754",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/4.0.1-feature-export-build-tasks-support.20250610141754/fd9fb9002ea339fc9771f35ba2b2cb2ec53f351e",
-      "integrity": "sha512-9Ir0ZowXmALAF8BvphsVM/HGSsWqFoi6e4Ee+hx2beK/+ENhm0RdvtOaJa3bLgaarA/RCznbYumvpQs33pEXKQ==",
+      "version": "4.0.1-feature-export-build-tasks-support.20250611130658",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/4.0.1-feature-export-build-tasks-support.20250611130658/35d201ea369fc6d983d6dbd7dd60992acf12cbde",
+      "integrity": "sha512-32nzfYOlW8jbjPn/NjKH3QZ0nmQA8BFTHvtfd2TMqOiNLaIs+uBFQo3C0tFwJPtCGZcjf9UbUJuH6tYcPNy6qg==",
       "license": "Apache-2.0",
       "dependencies": {
-        "@netcracker/qubership-apihub-api-diff": "feature-remove-oas-extensions",
-        "@netcracker/qubership-apihub-api-unifier": "feature-remove-oas-extensions",
+        "@netcracker/qubership-apihub-api-diff": "dev",
+        "@netcracker/qubership-apihub-api-unifier": "dev",
         "@netcracker/qubership-apihub-graphapi": "1.0.8",
         "@netcracker/qubership-apihub-json-crawl": "1.0.4",
         "adm-zip": "0.5.10",
@@ -1893,9 +1893,9 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-unifier": {
-      "version": "2.0.1-feature-remove-oas-extensions.20250603134734",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-unifier/2.0.1-feature-remove-oas-extensions.20250603134734/c26d5b12a83f5fb6d3c36830862f8c0c0719ebea",
-      "integrity": "sha512-d4k3IXnSngfMkB7deb8GkCEw3RvK1SjmtK/F95w7m4Avuc6ekPHZPQrpJgXn+UkGGPEdt9zTFLIWsduWBKb/Xg==",
+      "version": "2.0.1-dev.20250610150948",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-unifier/2.0.1-dev.20250610150948/04141794585db6aaf6e2f5ddb19617ea91fa6351",
+      "integrity": "sha512-G0V4o/IJy+vvFQgXz+GXKeGfy1NJ3ztHL+kjaIZQb8rb0m9nLTYjxEbYLPy3G0WCsqpjOVe+AlNqymXqV7NBtw==",
       "dependencies": {
         "@netcracker/qubership-apihub-json-crawl": "1.0.4",
         "fast-equals": "4.0.3",
