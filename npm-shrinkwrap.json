@@ -15,7 +15,7 @@
         "@nestjs/core": "^10.0.0",
         "@nestjs/platform-express": "^10.0.0",
         "@nestjs/swagger": "^7.0.0",
-        "@netcracker/qubership-apihub-api-processor": "4.1.2-bugfix-index-file-is-missing-export.20250813053157",
+        "@netcracker/qubership-apihub-api-processor": "4.1.2-bugfix-index-file-is-missing-export.20250814131036",
         "@sinclair/typebox": "^0.32.1",
         "adm-zip": "^0.5.10",
         "dotenv": "^16.3.1",
@@ -1860,9 +1860,9 @@
       "license": "MIT"
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "4.1.2-bugfix-index-file-is-missing-export.20250813053157",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/4.1.2-bugfix-index-file-is-missing-export.20250813053157/575dee2684457e950ff2ad1d748bf7fbaf8d76b1",
-      "integrity": "sha512-2FOtFrVafvIl0mNciHlb8jk4LFe8qhG7C9foyF8emBQXBr3L43dAJ0sLiv7wJQMrZyschOXtUfW2MpBWXKhXNw==",
+      "version": "4.1.2-bugfix-index-file-is-missing-export.20250814131036",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/4.1.2-bugfix-index-file-is-missing-export.20250814131036/3d4b2ee1f8854cd1c4a657d32d033ef6528c43ed",
+      "integrity": "sha512-JirkuhKY6WgNtH1X6zFjNn3RRFUORfhP3ABU9n6Tha5eFMX9Ov1tzpAsPoblYRdvOIs03E4ALTbvEKDqffaaNQ==",
       "license": "Apache-2.0",
       "dependencies": {
         "@netcracker/qubership-apihub-api-diff": "2.1.2",
