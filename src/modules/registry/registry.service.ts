@@ -215,7 +215,7 @@ export class RegistryService implements OnModuleInit {
     const encodedPackageKey = encodeURIComponent(packageId)
     const encodedVersionKey = encodeURIComponent(version)
 
-    const versionDocumentsUrl = `${this.baseUrl}/api/v3/packages/${encodedPackageKey}/versions/${encodedVersionKey}/documents?${queryParams}`
+    const versionDocumentsUrl = `${this.baseUrl}/api/v2/packages/${encodedPackageKey}/versions/${encodedVersionKey}/documents?${queryParams}`
     this.logger.debug(`Fetch version documents (page=${page}): `, versionDocumentsUrl)
     const logTag = '[getVersionDocuments]'
 
