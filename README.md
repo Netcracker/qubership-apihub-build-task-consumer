@@ -1,6 +1,6 @@
 # qubership-apihub-build-task-consumer
 
-NodeJS microservice for APIHUB Package versions builds.
+Node.js microservice for APIHUB Package versions builds.
 
 This microservice is REST API and task management wrapper for [qubership-apihub-api-processor](https://github.com/Netcracker/qubership-apihub-api-processor) library.
 
