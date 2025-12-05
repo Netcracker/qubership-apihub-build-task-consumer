@@ -274,7 +274,6 @@
       "integrity": "sha512-i1SLeK+DzNnQ3LL/CswPCa/E5u4lh1k6IAEphON8F+cXt0t9euTshDru0q7/IqMa1PMPz5RnHuHscF8/ZJsStg==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "@ampproject/remapping": "^2.2.0",
         "@babel/code-frame": "^7.26.0",
@@ -1621,7 +1620,6 @@
       "resolved": "https://registry.npmjs.org/@nestjs/common/-/common-10.4.17.tgz",
       "integrity": "sha512-NKzPA4Tb35XjlxizsT8KZb3CCX8tNKj5EnsXsTl/gZX//uAWccBsqB8BjU69x/u4/kQ0106/Kt6PP+yrHAez0w==",
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "file-type": "20.4.1",
         "iterare": "1.2.1",
@@ -1680,7 +1678,6 @@
       "integrity": "sha512-Tk4J5aS082NUYrsJEDLvGdU+kRnHAMdOvsA4j62fP5THO6fN6vqv6jWHfydhCiPGUCJWLT6m+mNIhETMhMAs+Q==",
       "hasInstallScript": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "@nuxtjs/opencollective": "0.3.2",
         "fast-safe-stringify": "2.1.1",
@@ -1738,7 +1735,6 @@
       "resolved": "https://registry.npmjs.org/@nestjs/platform-express/-/platform-express-10.4.17.tgz",
       "integrity": "sha512-ovn4Wxney3QGBrqNPv0QLcCuH5QoAi6pb/GNWAz6B/NmBjZbs9/zl4a2beGDA2SaYre9w43YbfmHTm17PneP9w==",
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "body-parser": "1.20.3",
         "cors": "2.8.5",
@@ -1864,6 +1860,15 @@
         "@netcracker/qubership-apihub-json-crawl": "1.1.0",
         "fast-equals": "4.0.3",
         "object-hash": "3.0.0"
+      }
+    },
+    "node_modules/@netcracker/qubership-apihub-api-diff/node_modules/@netcracker/qubership-apihub-json-crawl": {
+      "version": "1.1.0",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-json-crawl/1.1.0/4925a8d22fa9de7c75b120af6608e1e065d1c3ed",
+      "integrity": "sha512-b1YyCxAYUxD1anxXMk86zp+ALPPL9tSGOQU3iKKILcyQgnNXLwGPsm9g6NHuQqQ2HuzKbJMwJ6F3MAqAEzOGIQ==",
+      "license": "Apache-2.0",
+      "engines": {
+        "node": ">=14.0.0"
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-diff/node_modules/fast-equals": {
@@ -2253,7 +2258,6 @@
       "integrity": "sha512-FXx2pKgId/WyYo2jXw63kk7/+TY7u7AziEJxJAnSFzHlqTAS3Ync6SvgYAN/k4/PQpnnVuzoMuVnByKK2qp0ag==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "@types/estree": "*",
         "@types/json-schema": "*"
@@ -2402,7 +2406,6 @@
       "integrity": "sha512-zeMXFn8zQ+UkjK4ws0RiOC9EWByyW1CcVmLe+2rQocXRsGEDxUCwPEIVgpsGcLHS/P8JkT0oa3839BRABS0oPw==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "undici-types": "~6.19.2"
       }
@@ -2540,7 +2543,6 @@
       "integrity": "sha512-tbsV1jPne5CkFQCgPBcDOt30ItF7aJoZL997JSF7MhGQqOeT3svWRYxiqlfA5RUdlHN6Fi+EI9bxqbdyAUZjYQ==",
       "dev": true,
       "license": "BSD-2-Clause",
-      "peer": true,
       "dependencies": {
         "@typescript-eslint/scope-manager": "6.21.0",
         "@typescript-eslint/types": "6.21.0",
@@ -2924,7 +2926,6 @@
       "integrity": "sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "bin": {
         "acorn": "bin/acorn"
       },
@@ -2969,7 +2970,6 @@
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-8.12.0.tgz",
       "integrity": "sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==",
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "fast-deep-equal": "^3.1.1",
         "json-schema-traverse": "^1.0.0",
@@ -3195,7 +3195,6 @@
       "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.9.tgz",
       "integrity": "sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==",
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "follow-redirects": "^1.15.6",
         "form-data": "^4.0.0",
@@ -3479,7 +3478,6 @@
         }
       ],
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "caniuse-lite": "^1.0.30001688",
         "electron-to-chromium": "^1.5.73",
@@ -4488,7 +4486,6 @@
       "deprecated": "This version is no longer supported. Please see https://eslint.org/version-support for other options.",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "@eslint-community/eslint-utils": "^4.2.0",
         "@eslint-community/regexpp": "^4.6.1",
@@ -4545,7 +4542,6 @@
       "integrity": "sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "bin": {
         "eslint-config-prettier": "bin/cli.js"
       },
@@ -4896,7 +4892,6 @@
       "resolved": "https://registry.npmjs.org/express/-/express-4.21.2.tgz",
       "integrity": "sha512-28HqgMZAmih1Czt9ny7qr6ek2qddF4FclbMzwhCREB6OFfH+rXAnuNCwo1/wFvrtbgsQDb4kSbX9de9lFbrXnA==",
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "accepts": "~1.3.8",
         "array-flatten": "1.1.1",
@@ -6219,7 +6214,6 @@
       "integrity": "sha512-NIy3oAFp9shda19hy4HK0HRTWKtPJmGdnvywu01nOqNC2vZg+Z+fvJDxpMQA88eb2I9EcafcdjYgsDthnYTvGw==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "@jest/core": "^29.7.0",
         "@jest/types": "^29.6.3",
@@ -7898,7 +7892,6 @@
       "integrity": "sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "bin": {
         "prettier": "bin/prettier.cjs"
       },
@@ -8140,8 +8133,7 @@
       "version": "0.1.14",
       "resolved": "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.14.tgz",
       "integrity": "sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==",
-      "license": "Apache-2.0",
-      "peer": true
+      "license": "Apache-2.0"
     },
     "node_modules/reftools": {
       "version": "1.1.9",
@@ -8371,7 +8363,6 @@
       "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-7.8.1.tgz",
       "integrity": "sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==",
       "license": "Apache-2.0",
-      "peer": true,
       "dependencies": {
         "tslib": "^2.1.0"
       }
@@ -8427,7 +8418,6 @@
       "integrity": "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "fast-deep-equal": "^3.1.1",
         "fast-json-stable-stringify": "^2.0.0",
@@ -9492,7 +9482,6 @@
       "integrity": "sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "@cspotcode/source-map-support": "^0.8.0",
         "@tsconfig/node10": "^1.0.7",
@@ -9639,7 +9628,6 @@
       "integrity": "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
       "dev": true,
       "license": "Apache-2.0",
-      "peer": true,
       "bin": {
         "tsc": "bin/tsc",
         "tsserver": "bin/tsserver"
@@ -9859,7 +9847,6 @@
       "integrity": "sha512-EksG6gFY3L1eFMROS/7Wzgrii5mBAFe4rIr3r2BTfo7bcc+DWwFZ4OJ/miOuHJO/A85HwyI4eQ0F6IKXesO7Fg==",
       "dev": true,
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "@types/eslint-scope": "^3.7.7",
         "@types/estree": "^1.0.6",
