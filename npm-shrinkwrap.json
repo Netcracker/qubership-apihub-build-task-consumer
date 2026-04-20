@@ -1982,9 +1982,9 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "5.2.1-feature-async-api-group.20260417162726",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.2.1-feature-async-api-group.20260417162726/4fb551ea15597b90256a140870e174a43a78cce8",
-      "integrity": "sha512-idDBv4m2GuDmDT9r/0otb9ahf2I+mySy4cyaFDTH+IlUxF6BCCmFyP8XCAWEUkMYZ4EzGzDVKSdKfPx1VXhPvA==",
+      "version": "5.2.1-feature-async-api-group.20260420074631",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.2.1-feature-async-api-group.20260420074631/919b82d369638a198c768f99aaddb4f9e13c076f",
+      "integrity": "sha512-T6+n9NZ0fYraHtVuZ6ezUa9zcaOD9uEfwDIhf0hlNJHXT9g7La2hNfhw7fyTPKOz9puiMZvvFz7wEc9xRRrf/w==",
       "license": "Apache-2.0",
       "dependencies": {
         "@asyncapi/parser": "^3.0.0",
