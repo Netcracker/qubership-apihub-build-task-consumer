@@ -1962,9 +1962,9 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-diff": {
-      "version": "3.1.0",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-diff/3.1.0/93448d3f55036b89ddad2300a50209cdfc2adae7",
-      "integrity": "sha512-RWYQPoykZ0m0R6M/i3/KWR91S79KrbQFvrlfwc7KL5aeM+DGMGZyXPPobbGHfJtCGFI9STav1SC0QP5fdCcI0g==",
+      "version": "3.1.1-dev.20260417090701",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-diff/3.1.1-dev.20260417090701/ca4f21decfa20a0891cc24c699c8af430e8d1b33",
+      "integrity": "sha512-1Zj14MKsxHJXfM1Z4z04ApJHgP0aV0hhtBKwzuqFi3Qg5pk9IFW57OSMLbo39bZAjCufcaJNBh6Fx5gyV4o1yQ==",
       "dependencies": {
         "@netcracker/qubership-apihub-api-unifier": "2.7.0",
         "@netcracker/qubership-apihub-json-crawl": "1.2.0",
@@ -1980,13 +1980,13 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "5.2.1-feature-async-api-group.20260422060336",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.2.1-feature-async-api-group.20260422060336/a915b213b8c19a0f847a9c2d01bfb8af39f299c8",
-      "integrity": "sha512-7Bfobhmk80nrnRVvZ8EgJVZKyFBhTW+fPasOIK4Y1jLy0rfhEsXpgcn/JpK7d/rixTXmkcl+vM7yjb7HPkqHww==",
+      "version": "5.2.1-feature-async-api-group.20260422124940",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.2.1-feature-async-api-group.20260422124940/35342c806404c0df9f06325d4cab8fd21bd3c012",
+      "integrity": "sha512-+HqdkitzOHFH3biZfsr9tSNP5N48M7vHanMv8aWLVTGMYzKbmP7YqJe++QrC6+7NOkKBuWwvErHV55Wh6wPOjQ==",
       "license": "Apache-2.0",
       "dependencies": {
         "@asyncapi/parser": "^3.6.0",
-        "@netcracker/qubership-apihub-api-diff": "3.1.0",
+        "@netcracker/qubership-apihub-api-diff": "dev",
         "@netcracker/qubership-apihub-api-unifier": "2.7.0",
         "@netcracker/qubership-apihub-graphapi": "1.0.9",
         "@netcracker/qubership-apihub-json-crawl": "1.2.0",
