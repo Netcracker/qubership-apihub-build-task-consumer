@@ -316,7 +316,7 @@ export class BuilderService implements OnModuleInit {
     withoutChangelog && this.logger.log('[Builder Service] Run build without changelog')
 
     const { migrationInProgress } = await this.registry.getSystemInfo()
-    const apiProcessorVersionValidationLevel = migrationInProgress ? 'major' as const : 'strict' as const
+    const apiProcessorVersionValidationLevel = migrationInProgress ? 'major' : 'strict'
     migrationInProgress && this.logger.log('[Builder Service] Migration in progress, using major version validation')
 
     //override native logger
