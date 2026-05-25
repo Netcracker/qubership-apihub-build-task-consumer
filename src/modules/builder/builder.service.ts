@@ -173,7 +173,7 @@ export class BuilderService implements OnModuleInit {
             return null
           }
 
-          return new Blob([file])
+          return new Blob([file as unknown as BlobPart])
         },
         versionResolver: async (packageId, version, includeOperations) => {
           this.logger.debug(`[Builder Service] Start fetching version config(${version})`)

@@ -348,7 +348,7 @@ export class RegistryService implements OnModuleInit {
         map((response) => {
           const contentType = response.headers['content-type']
           const filename = response.headers['content-disposition'].split('filename=')[1].slice(1, -1)
-          return new File([response.data], filename, { type: contentType })
+          return new File([response.data], filename, { type: typeof contentType === 'string' ? contentType : undefined })
         }),
         catchError(err => {
           this.logger.error(logTag, err?.response?.data ?? err)

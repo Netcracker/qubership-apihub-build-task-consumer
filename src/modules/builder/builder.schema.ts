@@ -25,6 +25,7 @@ export const FileSchema = Type.Object({
   fileId: Type.String(),
   publish: Type.Boolean(),
   labels: Type.Array(Type.String()),
+  metadata: Type.Optional(Type.Record(Type.String(), Type.Any())),
 })
 
 // TODO: Remove Any when the problem with alias types is resolved
