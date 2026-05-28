@@ -14,7 +14,7 @@
         "@nestjs/config": "^3.0.0",
         "@nestjs/core": "^10.0.0",
         "@nestjs/platform-express": "^10.0.0",
-        "@netcracker/qubership-apihub-api-processor": "dev",
+        "@netcracker/qubership-apihub-api-processor": "5.3.1-bugfix-system-converts-table-to-string.20260528010844",
         "@sinclair/typebox": "^0.32.1",
         "adm-zip": "^0.5.10",
         "dotenv": "^16.3.1",
@@ -29,7 +29,7 @@
         "@nestjs/cli": "^10.0.0",
         "@nestjs/schematics": "^10.0.0",
         "@nestjs/testing": "^10.0.0",
-        "@netcracker/qubership-apihub-api-unifier": "2.7.0",
+        "@netcracker/qubership-apihub-api-unifier": "dev",
         "@netcracker/qubership-apihub-npm-gitflow": "3.1.1",
         "@types/adm-zip": "^0.5.1",
         "@types/express": "^4.17.21",
@@ -1914,16 +1914,16 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "5.3.0",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.3.0/8c3b2ef7d4321b0f2ad44be238ef38f6011093ac",
-      "integrity": "sha512-DhdZIXrjDCZf1xpp+UpU7uabEEcNl/zhRUZb2yQxOkOye4SqSyq0zdq8/cs5kU6kG/gzt+ddAm2ardFQyRUxPA==",
+      "version": "5.3.1-bugfix-system-converts-table-to-string.20260528010844",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.3.1-bugfix-system-converts-table-to-string.20260528010844/5bf63736eeb72d4be34f80faa87c1568ea08cfc0",
+      "integrity": "sha512-Y1ITGFLsWJvt6er91INRByLkUvpYVkbMtGSB7uSxr6f72sVbwe46xeqDWf9rRfQdZqpzgIQG0osgKJJx8sKfmA==",
       "license": "Apache-2.0",
       "dependencies": {
         "@asyncapi/parser": "^3.6.0",
-        "@netcracker/qubership-apihub-api-diff": "3.2.0",
-        "@netcracker/qubership-apihub-api-unifier": "2.7.0",
-        "@netcracker/qubership-apihub-graphapi": "1.0.9",
-        "@netcracker/qubership-apihub-json-crawl": "1.2.0",
+        "@netcracker/qubership-apihub-api-diff": "dev",
+        "@netcracker/qubership-apihub-api-unifier": "dev",
+        "@netcracker/qubership-apihub-graphapi": "dev",
+        "@netcracker/qubership-apihub-json-crawl": "dev",
         "adm-zip": "0.5.10",
         "ajv": "^8.12.0",
         "ajv-formats": "^2.1.1",
@@ -1938,7 +1938,7 @@
         "swagger2openapi": "^7.0.8"
       },
       "engines": {
-        "node": ">=18.0.0"
+        "node": ">=24.0.0"
       },
       "optionalDependencies": {
         "@rollup/rollup-linux-x64-gnu": "4.30.1"
