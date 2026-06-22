@@ -267,7 +267,7 @@ export class BuilderService implements OnModuleInit {
           this.logger.debug('[Builder Service] Finish fetching operation group documents')
           return response
         },
-        versionDocumentsResolver: async (version, packageId, apiType) => {
+        versionDocumentsResolver: async (version, packageId, apiType, contractType) => {
           this.logger.debug(`[Builder Service] Start fetching documents for version (${version})`)
           const response: ResolvedVersionDocuments = { documents: [], packages: {} }
 
@@ -282,6 +282,7 @@ export class BuilderService implements OnModuleInit {
               page,
               LIMIT,
               apiType,
+              contractType,
             ) ?? { documents: [], packages: {} }
 
             response.documents = [...response.documents, ...documents]
