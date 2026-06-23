@@ -14,7 +14,7 @@
         "@nestjs/config": "^3.0.0",
         "@nestjs/core": "^10.0.0",
         "@nestjs/platform-express": "^10.0.0",
-        "@netcracker/qubership-apihub-api-processor": "5.4.3",
+        "@netcracker/qubership-apihub-api-processor": "dev",
         "@sinclair/typebox": "^0.32.1",
         "adm-zip": "^0.5.10",
         "dotenv": "^16.3.1",
@@ -34,7 +34,6 @@
         "@types/adm-zip": "^0.5.1",
         "@types/express": "^4.17.21",
         "@types/jest": "^29.5.6",
-        "@types/js-yaml": "^4.0.5",
         "@types/multer": "^1.4.9",
         "@types/node": "^24.0.0",
         "@types/supertest": "^2.0.12",
@@ -1944,6 +1943,13 @@
         "@rollup/rollup-linux-x64-gnu": "4.30.1"
       }
     },
+    "node_modules/@netcracker/qubership-apihub-api-processor/node_modules/@netcracker/qubership-apihub-graphapi": {
+      "version": "1.0.10",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-graphapi/1.0.10/5ae05732e753fa2764af008dd7a837029a7e5822",
+      "integrity": "sha512-sHGPNujgLmez2Ct/4P1HYo7Ph/w/3RluP3sJ+fn1H1z6VuDwBf9FOBk2PzwHfqIcOiO4/TuGNat0E5t6wDrqwQ==",
+      "hasInstallScript": true,
+      "license": "Apache-2.0"
+    },
     "node_modules/@netcracker/qubership-apihub-api-processor/node_modules/adm-zip": {
       "version": "0.5.10",
       "resolved": "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.10.tgz",
@@ -1984,13 +1990,6 @@
       "resolved": "https://registry.npmjs.org/fast-equals/-/fast-equals-4.0.3.tgz",
       "integrity": "sha512-G3BSX9cfKttjr+2o1O22tYMLq0DPluZnYtq1rXumE1SpL/F/SLIfHx08WYQoWSIpeMYf8sRbJ8++71+v6Pnxfg==",
       "license": "MIT"
-    },
-    "node_modules/@netcracker/qubership-apihub-graphapi": {
-      "version": "1.0.11-bugfix-system-converts-table-to-string-2.20260623063557",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-graphapi/1.0.11-bugfix-system-converts-table-to-string-2.20260623063557/9ebd30e7f3f43800641a55a16d0305cacf8b58a4",
-      "integrity": "sha512-zMz0UkOc/xlP5HSNkDsWAHFWP7OSAz7o3qNXvOAf7Z2hBalOdaCA5i5Z1uAlSaDwiXtzSUg17qbfXJ/GDC2hEQ==",
-      "hasInstallScript": true,
-      "license": "Apache-2.0"
     },
     "node_modules/@netcracker/qubership-apihub-json-crawl": {
       "version": "1.2.1",
@@ -2734,13 +2733,6 @@
         "expect": "^29.0.0",
         "pretty-format": "^29.0.0"
       }
-    },
-    "node_modules/@types/js-yaml": {
-      "version": "4.0.5",
-      "resolved": "https://registry.npmjs.org/@types/js-yaml/-/js-yaml-4.0.5.tgz",
-      "integrity": "sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==",
-      "dev": true,
-      "license": "MIT"
     },
     "node_modules/@types/json-schema": {
       "version": "7.0.15",
