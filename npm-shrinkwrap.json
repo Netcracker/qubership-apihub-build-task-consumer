@@ -1,12 +1,12 @@
 {
   "name": "@netcracker/qubership-apihub-build-task-consumer",
-  "version": "3.2.0",
+  "version": "3.2.2",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "@netcracker/qubership-apihub-build-task-consumer",
-      "version": "3.2.0",
+      "version": "3.2.2",
       "license": "Apache-2.0",
       "dependencies": {
         "@nestjs/axios": "^3.0.0",
@@ -14,7 +14,7 @@
         "@nestjs/config": "^3.0.0",
         "@nestjs/core": "^10.0.0",
         "@nestjs/platform-express": "^10.0.0",
-        "@netcracker/qubership-apihub-api-processor": "dev",
+        "@netcracker/qubership-apihub-api-processor": "5.4.3",
         "@sinclair/typebox": "^0.32.1",
         "adm-zip": "^0.5.10",
         "dotenv": "^16.3.1",
@@ -1895,9 +1895,9 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-diff": {
-      "version": "3.3.1-bugfix-system-converts-table-to-string-2.20260619055108",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-diff/3.3.1-bugfix-system-converts-table-to-string-2.20260619055108/7c7b53d42551d6745f9f142257e61453e37eedee",
-      "integrity": "sha512-RKD+02kE3zlCNu1MtNFV/cYBLEs8jLcSRB42xhRmL1cq3AAGlQ3eln5sbjG4SRUxQXy9FnEVjmqGQXqvgHPMhQ==",
+      "version": "3.3.3",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-diff/3.3.3/7497f33c787dc0f6b93d9795b3885f6422a6ff60",
+      "integrity": "sha512-4n5zZLGgCrY0mnUu9/+siMTQLM72J/+PbFsbsSdoiDHNaC90s2Z5zh7PRbREGLiLx81FWEq3chSSj4TGz9Mo2w==",
       "dependencies": {
         "@netcracker/qubership-apihub-api-unifier": "2.8.0",
         "@netcracker/qubership-apihub-json-crawl": "1.2.1",
@@ -1914,15 +1914,15 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "5.4.4-bugfix-system-converts-table-to-string-2.20260623065621",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.4.4-bugfix-system-converts-table-to-string-2.20260623065621/3ecf4041699c414cbf288cbe22d7ec8293462f75",
-      "integrity": "sha512-a3vV9MgrFm2mY2kePW6WGChi8Xt/YHXKg37KIsjcwYPD4Xm+2VDieKctbyQH19b3GKhgJL5y7cg/uuZ2NtvXSw==",
+      "version": "5.4.3",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.4.3/38cdc1699a5e94ee8992c6625708e441d7591887",
+      "integrity": "sha512-eguqZYJrp9iavNW8y0zfbVv50sjiMx63lxqEbatElQ//2brut+HEmN6cnTCwUhySqaZzY+GJKjEi1qTkP9CRYg==",
       "license": "Apache-2.0",
       "dependencies": {
         "@asyncapi/parser": "^3.6.0",
-        "@netcracker/qubership-apihub-api-diff": "bugfix-system-converts-table-to-string-2",
-        "@netcracker/qubership-apihub-api-unifier": "bugfix-system-converts-table-to-string-2",
-        "@netcracker/qubership-apihub-graphapi": "bugfix-system-converts-table-to-string-2",
+        "@netcracker/qubership-apihub-api-diff": "3.3.3",
+        "@netcracker/qubership-apihub-api-unifier": "2.8.0",
+        "@netcracker/qubership-apihub-graphapi": "1.0.10",
         "@netcracker/qubership-apihub-json-crawl": "1.2.1",
         "adm-zip": "0.5.10",
         "ajv": "^8.12.0",
