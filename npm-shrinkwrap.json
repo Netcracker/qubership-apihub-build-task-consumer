@@ -1914,9 +1914,9 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "5.4.1-bugfix-system-converts-table-to-string-2.20260619070021",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.4.1-bugfix-system-converts-table-to-string-2.20260619070021/56e5b41bb9736eb10decfffe5d4f10779e9d62f2",
-      "integrity": "sha512-Pr4hMqaNfNewfFJpp339zenkk4/0DnxZUn4hdczvcynw4ESakSPRE8heL15DHBXhCSlNYZER5ftslLZHF0aj7g==",
+      "version": "5.4.4-bugfix-system-converts-table-to-string-2.20260623065621",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.4.4-bugfix-system-converts-table-to-string-2.20260623065621/3ecf4041699c414cbf288cbe22d7ec8293462f75",
+      "integrity": "sha512-a3vV9MgrFm2mY2kePW6WGChi8Xt/YHXKg37KIsjcwYPD4Xm+2VDieKctbyQH19b3GKhgJL5y7cg/uuZ2NtvXSw==",
       "license": "Apache-2.0",
       "dependencies": {
         "@asyncapi/parser": "^3.6.0",
@@ -1935,7 +1935,7 @@
         "object-hash": "^3.0.0",
         "slug": "^8.2.3",
         "swagger2openapi": "^7.0.8",
-        "yaml": "^2.8.0"
+        "yaml": "2.9.0"
       },
       "engines": {
         "node": ">=24.0.0"
@@ -1986,9 +1986,9 @@
       "license": "MIT"
     },
     "node_modules/@netcracker/qubership-apihub-graphapi": {
-      "version": "1.0.11-bugfix-system-converts-table-to-string-2.20260619053205",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-graphapi/1.0.11-bugfix-system-converts-table-to-string-2.20260619053205/c767f50c744221885bb2c6a714a10916b8f1c146",
-      "integrity": "sha512-ssNsX7sPbkhBGOjOgBUAy+nu1o14Q8MB8TBONO6m+ODbSgpuKtD5z8MFTGHYlxeSTlQ7esHcT18wURS5Vruv6A==",
+      "version": "1.0.11-bugfix-system-converts-table-to-string-2.20260623063557",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-graphapi/1.0.11-bugfix-system-converts-table-to-string-2.20260623063557/9ebd30e7f3f43800641a55a16d0305cacf8b58a4",
+      "integrity": "sha512-zMz0UkOc/xlP5HSNkDsWAHFWP7OSAz7o3qNXvOAf7Z2hBalOdaCA5i5Z1uAlSaDwiXtzSUg17qbfXJ/GDC2hEQ==",
       "hasInstallScript": true,
       "license": "Apache-2.0"
     },
