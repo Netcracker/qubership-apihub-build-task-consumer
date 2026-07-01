@@ -17,12 +17,12 @@
 import {
   FileId,
   TemplatePath,
-  PackageVersionBuilder,
   ResolvedGroupDocuments,
   ResolvedVersionDocuments,
   ResolvedPackage,
   VERSION_VALIDATION_LEVEL,
 } from '@netcracker/qubership-apihub-api-processor'
+import { PackageVersionBuilder } from '@netcracker/qubership-apihub-api-processor/processor'
 import { ConfigService } from '@nestjs/config'
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
 import AdmZip from 'adm-zip'
