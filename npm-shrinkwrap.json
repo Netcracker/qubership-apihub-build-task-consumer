@@ -1895,9 +1895,9 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-diff": {
-      "version": "3.3.4-feature-externalize-pqparser.20260629161031",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-diff/3.3.4-feature-externalize-pqparser.20260629161031/7fd5fbddd3c86963f0e20f101556d7a50a48a1ed",
-      "integrity": "sha512-e8XMgX+JFG24+8JVE/F2bMKLG/o46NomxFP6LSotHdsWlfGFUb4QbfddPchEvNG46DhDAhndZ7W14dqau5JDFg==",
+      "version": "3.3.4-feature-externalize-pqparser.20260630203234",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-diff/3.3.4-feature-externalize-pqparser.20260630203234/a712cbd6426be75397583c7b9008f751d8d65e0f",
+      "integrity": "sha512-qucpHM1XqSASeZTRs6kGaiW+elQbzs37xB6i6ffqgN/O0TIH+XmYzTaEGXUldsEGK2quKG+yvAiJeSPaOijjgA==",
       "dependencies": {
         "@netcracker/qubership-apihub-api-unifier": "feature-externalize-pqparser",
         "@netcracker/qubership-apihub-ddlapi": "feature-externalize-pqparser",
@@ -1915,9 +1915,9 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-processor": {
-      "version": "5.4.4-feature-externalize-pqparser.20260630121420",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.4.4-feature-externalize-pqparser.20260630121420/1fb185578914b9f7fc44dab76b55ed5c3578779c",
-      "integrity": "sha512-s3vawmlu1d6u/EqyOCHVebWP3M+Z70QuMO0KMIvvz+UXRrOB0BZhsneM7XNJFpjG0feGhhN6xdgGcHRKJnEy5A==",
+      "version": "5.4.4-feature-externalize-pqparser.20260701060830",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-processor/5.4.4-feature-externalize-pqparser.20260701060830/7445e3244060bc76bf96f2db1ea555e7ad7538f2",
+      "integrity": "sha512-+fHSWt8HVWh4Z029ULsNHD5p1rA8arwQgfFsguoccKV9iqiNW/Cmd0Sbbg5sRZ6u1edI5ithDcOeP1RgJthm/Q==",
       "license": "Apache-2.0",
       "dependencies": {
         "@asyncapi/parser": "^3.6.0",
@@ -1971,9 +1971,9 @@
       }
     },
     "node_modules/@netcracker/qubership-apihub-api-unifier": {
-      "version": "2.8.1-feature-externalize-pqparser.20260629155655",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-unifier/2.8.1-feature-externalize-pqparser.20260629155655/6a3685c27333ff6409c550a6b452ee209189a2fb",
-      "integrity": "sha512-uGWpFNKTV6X0XDCjqzTqhzxDNDzq9nNrcUfHuqbW1bBF063LsE+Y+ULcFUAV/ZgEofa5EKaMOJ4CoLfAl33ekw==",
+      "version": "2.8.1-feature-externalize-pqparser.20260630193804",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-api-unifier/2.8.1-feature-externalize-pqparser.20260630193804/fcec70f9a7d235e58a3b1bd121d54bd8dc48c62a",
+      "integrity": "sha512-PsA26niupdKX/JJB5v5GVhcsGer4Pi8c9m+CMaC+2a0nRO41uWqrOjchNKkSJjgVOsmOm0QyK1qrq/8kIPy2AA==",
       "dependencies": {
         "@netcracker/qubership-apihub-ddlapi": "feature-externalize-pqparser",
         "@netcracker/qubership-apihub-json-crawl": "1.2.1",
@@ -1989,13 +1989,14 @@
       "license": "MIT"
     },
     "node_modules/@netcracker/qubership-apihub-ddlapi": {
-      "version": "1.0.0-feature-externalize-pqparser.20260629154157",
-      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-ddlapi/1.0.0-feature-externalize-pqparser.20260629154157/ca4f1b37d110defb45f868a2cfd7611c2ad6dd02",
-      "integrity": "sha512-DrvTl8r/DQAgyyLDxoEmjWtbc3YCB4Hjti09ya8GnQCD6ryjIAwjy79vFXbhXZNLiemPS+uGhNRETGhHSSEHtg==",
+      "version": "1.0.0-feature-externalize-pqparser.20260630193628",
+      "resolved": "https://npm.pkg.github.com/download/@netcracker/qubership-apihub-ddlapi/1.0.0-feature-externalize-pqparser.20260630193628/d8aa9b03945231580a5007f4d02b7adf8a4fde60",
+      "integrity": "sha512-uiKQ7tzjKcRfVFFHPMZoOAZfWQCUpp38XV0ay+dTuBwm7ywaq3SrvRNw8axkNetxqCF/Rc9afZBbusbBZBizKw==",
       "license": "Apache-2.0",
       "dependencies": {
-        "@pgsql/types": "^17.6.2",
-        "pgsql-parser": "^17.9.15"
+        "@pgsql/types": "17.6.2",
+        "libpg-query": "17.7.3",
+        "pgsql-deparser": "17.18.3"
       }
     },
     "node_modules/@netcracker/qubership-apihub-graphapi": {
@@ -9157,17 +9158,6 @@
       "dependencies": {
         "@pgsql/quotes": "17.1.0",
         "@pgsql/types": "^17.6.2"
-      }
-    },
-    "node_modules/pgsql-parser": {
-      "version": "17.9.15",
-      "resolved": "https://registry.npmjs.org/pgsql-parser/-/pgsql-parser-17.9.15.tgz",
-      "integrity": "sha512-6+k0EtTn0CEQTR5v2APARu9En4vm46TpmpdMSfKDHkZwWZuEc08B7SeVg32VxNQ2HD5xk+dQ9TD0k9m+S+vFgg==",
-      "license": "MIT",
-      "dependencies": {
-        "@pgsql/types": "^17.6.2",
-        "libpg-query": "17.7.3",
-        "pgsql-deparser": "17.18.3"
       }
     },
     "node_modules/picocolors": {
