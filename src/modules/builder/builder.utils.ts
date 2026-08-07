@@ -18,6 +18,7 @@ import {
   API_AUDIENCE_EXTERNAL,
   API_AUDIENCE_INTERNAL,
   API_AUDIENCE_UNKNOWN,
+  ASYNCAPI_API_TYPE,
   GRAPHQL_API_TYPE,
   ResolvedOperation,
   REST_API_TYPE,
@@ -30,7 +31,7 @@ export type OperationsDto = Readonly<{
   // todo
   // packages: PackagesRefs
 }>
-export type OperationDto = RestOperationDto | GraphQlOperationDto
+export type OperationDto = RestOperationDto | GraphQlOperationDto | AsyncApiOperationDto
 
 export const EMPTY_OPERATIONS: OperationsDto = {
   operations: []
@@ -38,10 +39,12 @@ export const EMPTY_OPERATIONS: OperationsDto = {
 
 export const API_TYPE_REST = REST_API_TYPE
 export const API_TYPE_GRAPHQL = GRAPHQL_API_TYPE
+export const API_TYPE_ASYNCAPI = ASYNCAPI_API_TYPE
 
 export type ApiType =
   | typeof API_TYPE_REST
   | typeof API_TYPE_GRAPHQL
+  | typeof API_TYPE_ASYNCAPI
 
 export const ALL_API_KIND = 'all'
 export const BWC_API_KIND = 'bwc'
@@ -112,23 +115,71 @@ export type GraphQlOperationDto = OperationMetadataDto & Readonly<{
   type: GraphQlOperationType
 }>
 
-export function isRestOperationDto(operation: OperationDto): operation is RestOperationDto {
-  const asRestOperation = (operation as RestOperationDto)
-  return asRestOperation.path !== undefined
+/**
+ * Carries more than the display fields because the builder pairs AsyncAPI operations across
+ * versions on `action x address x payloadIdentity`, keyed by `asyncOperationId` / `messageId` -
+ * that is what lets a version survive an id whose generated suffix changed.
+ *
+ * `address` is what a consumer binds to, as opposed to `channel`, which is a display title. Both
+ * it and `payloadIdentity` are optional at the source and absence is meaningful: it says the
+ * operation has no stable anchor, so the builder keeps plain id-equality behaviour for it.
+ * `payloadIdentity` is compared for equality only - the format belongs to the builder and nothing
+ * here may parse it.
+ */
+export type AsyncApiOperationDto = OperationMetadataDto & Readonly<{
+  action: string
+  channel: string
+  protocol: string
+  asyncOperationId: string
+  messageId: string
+  address?: string
+  payloadIdentity?: string
+}>
+
+/**
+ * Projects a fetched operation onto the metadata the builder needs for the *previous* version of a
+ * comparison.
+ *
+ * Discriminates on `apiType` rather than on shape. The `isRestOperationDto` probe this replaced
+ * tested for `path` and treated everything else as GraphQL, so an AsyncAPI operation silently took
+ * the GraphQL branch and arrived carrying `{tags, method: undefined, type: undefined}` - none of
+ * the five fields its pairing needs. Every AsyncAPI id flip then reported as an operation removed
+ * plus one added. A switch cannot fail that way: an api type nobody handled reaches `default`
+ * instead of being absorbed by whichever branch happens to be last.
+ */
+function metadataOf(value: OperationDto): object {
+  switch (value.apiType) {
+    case API_TYPE_REST: {
+      const operation = value as RestOperationDto
+      return { tags: operation.tags, method: operation.method, path: operation.path }
+    }
+    case API_TYPE_ASYNCAPI: {
+      const operation = value as AsyncApiOperationDto
+      return {
+        tags: operation.tags,
+        action: operation.action,
+        channel: operation.channel,
+        protocol: operation.protocol,
+        asyncOperationId: operation.asyncOperationId,
+        messageId: operation.messageId,
+        address: operation.address,
+        payloadIdentity: operation.payloadIdentity,
+      }
+    }
+    case API_TYPE_GRAPHQL: {
+      const operation = value as GraphQlOperationDto
+      return { tags: operation.tags, method: operation.method, type: operation.type }
+    }
+    // An api type nobody has taught this function about. Returning the common fields alone is the
+    // honest answer: it degrades that type to id-equality pairing, which is what it had anyway,
+    // instead of handing the builder another type's shape filled with undefined.
+    default:
+      return { tags: value.tags }
+  }
 }
 
 export function toVersionOperation(value: OperationDto): ResolvedOperation {
-  const metadata = isRestOperationDto(value)
-    ? {
-      tags: value.tags,
-      method: value.method,
-      path: value.path,
-    }
-    : {
-      tags: value.tags,
-      method: value.method,
-      type: value.type,
-    }
+  const metadata = metadataOf(value)
   return {
     apiType: value.apiType,
     operationId: value.operationId,
