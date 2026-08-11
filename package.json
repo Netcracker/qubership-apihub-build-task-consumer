@@ -39,7 +39,8 @@
     "openapi-types": "^12.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "axios": "^1.6.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -55,7 +56,6 @@
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
-    "axios": "^1.6.2",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
