@@ -174,7 +174,10 @@ export class BuilderService implements OnModuleInit {
             return null
           }
 
-          return new Blob([file])
+          // Buffer is a Uint8Array at runtime and is a valid BlobPart. @types/node 24 types
+          // it as Buffer<ArrayBufferLike>, which no longer matches BlobPart's
+          // ArrayBufferView<ArrayBuffer>, so this is a typing gap rather than a real mismatch.
+          return new Blob([file as unknown as BlobPart])
         },
         versionResolver: async (packageId, version, includeOperations) => {
           this.logger.debug(`[Builder Service] Start fetching version config(${version})`)

@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    /* TypeScript 6 defaults "types" to [] rather than every package under typeRoots. */
+    "types": ["node", "jest"],
+    /* TypeScript 6 requires rootDir to be explicit alongside outDir (TS5011). */
+    "rootDir": "./",
+    /* TS 6 reports baseUrl / moduleResolution:node as deprecated (TS5101/TS5107);
+      both still function through 6.x. */
+    "ignoreDeprecations": "6.0",
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
