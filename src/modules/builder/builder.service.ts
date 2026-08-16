@@ -174,10 +174,11 @@ export class BuilderService implements OnModuleInit {
             return null
           }
 
-          // Buffer is a Uint8Array at runtime and is a valid BlobPart. @types/node 24 types
-          // it as Buffer<ArrayBufferLike>, which no longer matches BlobPart's
-          // ArrayBufferView<ArrayBuffer>, so this is a typing gap rather than a real mismatch.
-          return new Blob([file as unknown as BlobPart])
+          // @types/node 24 types Buffer as Buffer<ArrayBufferLike>, which no longer satisfies
+          // BlobPart. Copying into a Uint8Array gives a concrete ArrayBuffer-backed view and
+          // needs no cast. Note file.buffer would be wrong: Buffers under ~4KB are views into
+          // a shared allocation pool, so it yields the whole pool rather than these bytes.
+          return new Blob([new Uint8Array(file)])
         },
         versionResolver: async (packageId, version, includeOperations) => {
           this.logger.debug(`[Builder Service] Start fetching version config(${version})`)
