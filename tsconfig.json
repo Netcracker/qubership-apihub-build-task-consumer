@@ -2,8 +2,11 @@
   "compilerOptions": {
     /* TypeScript 6 defaults "types" to [] rather than every package under typeRoots. */
     "types": ["node", "jest"],
-    /* TypeScript 6 requires rootDir to be explicit alongside outDir (TS5011). */
-    "rootDir": "./",
+    /* TypeScript 6 requires rootDir to be explicit alongside outDir (TS5011). It must be
+      ./src, matching nest-cli.json's "sourceRoot": the Dockerfile runs `node dist/main`,
+      so src/main.ts has to emit to dist/main.js. A rootDir of ./ emits dist/src/main.js
+      instead and the container dies on startup. */
+    "rootDir": "./src",
     /* TS 6 reports baseUrl / moduleResolution:node as deprecated (TS5101/TS5107);
       both still function through 6.x. */
     "ignoreDeprecations": "6.0",
