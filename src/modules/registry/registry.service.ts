@@ -29,8 +29,8 @@ import {
   ResolvedVersionDocuments,
 } from '@netcracker/qubership-apihub-api-processor'
 import AdmZip from 'adm-zip'
-import { toBackendBuildStatus } from 'src/utils/mapper'
-import { Task } from 'src/types'
+import { toBackendBuildStatus } from '../../utils/mapper'
+import { Task } from '../../types'
 import { OperationsDto } from '../builder/builder.utils'
 
 @Injectable()

@@ -13,14 +13,6 @@
       require() calls: this changes resolution, not output. */
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    /* Replaces what "baseUrl": "./" was doing. baseUrl is not only for paths - it also
-      lets bare specifiers resolve from the base directory, which four imports here rely
-      on (src/types, src/utils/mapper, src/modules/builder/builder.constants). Removing
-      baseUrl without this breaks them with TS2307. paths resolve relative to this file
-      when baseUrl is absent, so ./src/* is the same directory it always was. */
-    "paths": {
-      "src/*": ["./src/*"]
-    },
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
