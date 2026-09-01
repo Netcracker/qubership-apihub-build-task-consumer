@@ -347,9 +347,19 @@ export class RegistryService implements OnModuleInit {
       .pipe(
         retry({ delay: this.requestRetryHandler(logTag) }),
         map((response) => {
+          // axios types a header value as AxiosHeaderValue | undefined - string, string[],
+          // number, boolean, null or absent - so neither of these reads is a string on its
+          // own. content-disposition was read with no guard at all and threw
+          // "Cannot read properties of undefined (reading 'split')" whenever the server
+          // omitted it; the slug is what was asked for, so it is the sensible fallback.
           const contentType = response.headers['content-type']
-          const filename = response.headers['content-disposition'].split('filename=')[1].slice(1, -1)
-          return new File([response.data], filename, { type: contentType })
+          const contentDisposition = response.headers['content-disposition']
+          const filename = typeof contentDisposition === 'string' && contentDisposition.includes('filename=')
+            ? contentDisposition.split('filename=')[1].slice(1, -1)
+            : slug
+          return new File([response.data], filename, {
+            type: typeof contentType === 'string' ? contentType : undefined,
+          })
         }),
         catchError(err => {
           this.logger.error(logTag, err?.response?.data ?? err)
