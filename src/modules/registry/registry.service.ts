@@ -352,14 +352,10 @@ export class RegistryService implements OnModuleInit {
           // own. content-disposition was read with no guard at all and threw
           // "Cannot read properties of undefined (reading 'split')" whenever the server
           // omitted it; the slug is what was asked for, so it is the sensible fallback.
-          const contentType = response.headers['content-type']
-          const contentDisposition = response.headers['content-disposition']
-          const filename = typeof contentDisposition === 'string' && contentDisposition.includes('filename=')
-            ? contentDisposition.split('filename=')[1].slice(1, -1)
-            : slug
-          return new File([response.data], filename, {
-            type: typeof contentType === 'string' ? contentType : undefined,
-          })
+          const contentType = String(response.headers['content-type'] ?? '')
+          const contentDisposition = String(response.headers['content-disposition'] ?? '')
+          const filename = contentDisposition.split('filename=')[1]?.slice(1, -1) || slug
+          return new File([response.data], filename, { type: contentType })
         }),
         catchError(err => {
           this.logger.error(logTag, err?.response?.data ?? err)
